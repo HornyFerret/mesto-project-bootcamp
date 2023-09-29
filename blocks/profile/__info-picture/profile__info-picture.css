@@ -1,0 +1,6 @@
+.profile__info-picture {
+    grid-column: 2/3;
+    grid-row: 1/2;
+    align-self: center;
+    margin-top: 5px;
+}

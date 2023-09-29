@@ -1,32 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body class="page">
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./pages/index.css" />
+    <title>Project Mesto</title>
+  </head>
+  <body class="page">
     <header class="header">
-
+      <img
+        src="./images/header__image.png"
+        alt="название сайта"
+        class="header__image"
+      />
     </header>
 
     <main class="main">
+      <section class="profile">
+        <img
+          src="./images/profile__avatar.jpg"
+          alt="автарка"
+          class="profile__avatar"
+        />
+        <div class="profile__info">
+          <h1 class="profile__main-text">Жак-Ив Кусто</h1>
+          <p class="profile__text">Исследователь океана</p>
+          <img
+            src="./images/profile__info-picture.png"
+            alt="карандашик"
+            class="profile__info-picture"
+          />
+        </div>
+        <img src="./images/profile__add-button.png" alt="кнопка подписки" class="profile__add-button"></img>
+      </section>
 
-        <section class="profile">
+      <section class="elements">
+        <div class="element">
+          <img src="./images/element__image_1.png" alt="Карачаевск" class="element__image">
+          <p class="element__text">Карачаевск</p>
+          <img src="./images/element__like.png" alt="лайк" class="element__like">
+        </div>
 
-        </section>
+        <div class="element">
+          <img src="./images/element__image_2.png" alt="Гора Эльбрус" class="element__image">
+          <p class="element__text">Гора Эльбрус</p>
+          <img src="./images/element__like.png" alt="лайк" class="element__like">
+        </div>
 
-        <section class="elements">
+        <div class="element">
+          <img src="./images/element__image_3.png" alt="Домбай" class="element__image">
+          <p class="element__text">Домбай</p>
+          <img src="./images/element__like.png" alt="лайк" class="element__like">
+        </div>
 
-        </section>
+        <div class="element">
+          <img src="./images/element__image_2.png" alt="Гора Эльбрус" class="element__image">
+          <p class="element__text">Гора Эльбрус</p>
+          <img src="./images/element__like.png" alt="лайк" class="element__like">
+        </div>
 
+        <div class="element">
+          <img src="./images/element__image_3.png" alt="Домбай" class="element__image">
+          <p class="element__text">Домбай</p>
+          <img src="./images/element__like.png" alt="лайк" class="element__like">
+        </div>
+
+        <div class="element">
+          <img src="./images/element__image_1.png" alt="Карачаевск" class="element__image">
+          <p class="element__text">Карачаево-Ч...</p>
+          <img src="./images/element__like.png" alt="лайк" class="element__like">
+        </div>
+
+      </section>
     </main>
 
-    <footer class="footer">
-
-    </footer>
-
-</body>
-<script src="./script.js"></script>
+    <footer class="footer"></footer>
+  </body>
+  <script src="./script.js"></script>
 </html>
