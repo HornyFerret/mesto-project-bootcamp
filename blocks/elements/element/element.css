@@ -1,0 +1,18 @@
+.element {
+    max-width: 282px;
+    border-radius: 3%;
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 17px 20px 0;
+}
+
+.element:nth-child(3) {
+    margin-right: 0;
+}
+.element:nth-child(6) {
+    margin-right: 0;
+}

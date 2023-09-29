@@ -1,0 +1,4 @@
+.element__image {
+    align-self: flex-start;
+    object-fit: contain;
+}
