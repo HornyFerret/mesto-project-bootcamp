@@ -5,6 +5,11 @@
     margin-top: 5px;
 }
 
+.profile__info-picture:hover {
+    opacity: 60%;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 655px) {
     .profile__info-picture {
         max-width: 18px;
