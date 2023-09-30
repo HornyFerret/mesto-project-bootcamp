@@ -10,3 +10,11 @@
     grid-row: 1/2;
     margin: 0;
 }
+
+@media screen and (max-width: 655px) {
+    .profile__main-text {
+        font-size: 27px;
+        line-height: 33px;
+        text-align: center;
+    }
+}

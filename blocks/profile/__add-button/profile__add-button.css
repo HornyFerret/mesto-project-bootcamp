@@ -2,4 +2,17 @@
     object-fit: contain;
     align-self: flex-end;
     margin:  auto 0 auto auto;
+    min-width: 22px;
+    padding: 13px 63px;
+    border: 2px solid #fff
+}
+
+@media screen and (max-width: 655px) {
+    .profile__add-button {
+        align-self: center;
+        margin-right: auto;
+        margin-top: 34px;
+        min-width: 16px;
+        padding: 15px 132px;
+    }
 }

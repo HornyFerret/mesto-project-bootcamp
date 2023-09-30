@@ -16,3 +16,19 @@
 .element:nth-child(6) {
     margin-right: 0;
 }
+
+@media screen and (max-width: 655px) {
+    .element {
+        margin: 0 auto 20px;
+    }
+    .element:nth-child(3) {
+        margin-right: auto;
+    }
+    .element:nth-child(6) {
+        margin-right: auto;
+    }
+    .element:nth-child(6) {
+        margin-right: auto;
+        margin-bottom: 0;
+    }
+}
