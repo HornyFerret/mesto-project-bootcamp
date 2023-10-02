@@ -1,10 +1,14 @@
 .profile__info {
     display: grid;
-    grid-template-columns: repeat(2, max-content);
-    grid-template-rows: repeat(2, max-content);
+    grid-template-columns: minmax(600, min-content) min-content;
+    grid-template-rows: repeat(2, min-content);
     row-gap: 9px;
-    column-gap: 25px;
+    column-gap: 19px;
     margin: auto 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 55%;
 }
 
 @media screen and (max-width: 655px) {
@@ -13,7 +17,10 @@
         margin-top: 26px;
         column-gap: 10px;
         max-width: 100%;
-        margin-left: 28px;
+        margin-left: 25px;
+        overflow: visible;
+        row-gap: 7px;
+        column-gap: 10px;
     }
 }
 

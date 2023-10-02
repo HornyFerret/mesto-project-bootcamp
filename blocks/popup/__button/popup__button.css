@@ -7,15 +7,20 @@
     text-align: center;
     background-color: #000;
     color: #fff;
-    padding: 14px 0;
-    margin: 47px 0 37px;
+    padding: 15px 0 12px;
+    margin: 44px 0 37px;
     border-radius: 1px;
+}
+
+.popup__button:hover {
+    background-color: rgba(0, 0, 0, .8);
+    cursor: pointer;
 }
 
 @media screen and (max-width: 655px) {
     .popup__button {
         margin: 43px 0 24px;
-        padding: 15px 0;
+        padding: 14px 0;
         font-size: 14px;
         line-height: 17px;
     }

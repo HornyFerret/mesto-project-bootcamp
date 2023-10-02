@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,7 +31,7 @@
             class="profile__info-picture"
           />
         </div>
-        <img src="./images/profile__add-button.png" alt="кнопка подписки" class="profile__add-button"></img>
+        <img src="./images/profile__add-button.png" alt="кнопка подписки" class="profile__add-button">
       </section>
 
       <section class="elements">
@@ -78,20 +78,19 @@
       <p class="footer__text">© 2020 Mesto Russia</p>
     </footer>
 
-    <section class="popup_opened">
+    <section class="popup">  <!-- popup_opened --> <!-- popup -->
       <div class="popup__container">
         <img src="./images/popup__close.png" alt="закрывашка" class="popup__close">
         <h2 class="popup__title">Редактировать профиль</h2>
 
         <div class="popup__form">
-          <input type="text" placeholder="Имя" class="popup__input popup__input-first">
-          <input type="text" placeholder="Профессия" class="popup__input popup__input-second">
+          <input class="popup__input popup__input-first" type="text" placeholder="Имя" >
+          <input class="popup__input popup__input-second" type="text" placeholder="Профессия" >
           <button class="popup__button">Сохранить</button>  
         </div>
 
       </div>
     </section>
-
-  </body>
   <script src="./script.js"></script>
+  </body>
 </html>

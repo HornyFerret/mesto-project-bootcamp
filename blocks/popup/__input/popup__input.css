@@ -1,4 +1,5 @@
 .popup__input {
+    border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     font-family: 'Inter', 'Arial', sans-serif;
     font-size: 14px;
@@ -8,6 +9,7 @@
     text-align: left;
     margin: 30px 0 0;
     padding-bottom: 9px;
+    box-shadow: none;
 }
 
 .popup__input:first-child {

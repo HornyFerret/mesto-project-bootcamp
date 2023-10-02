@@ -13,4 +13,5 @@ function addInput() {
     name.value = '';
     profesion.value = '';
 }
+
 saveButton.addEventListener('click', addInput);
