@@ -17,6 +17,15 @@
     margin-right: 0;
 }
 
+@media screen and (max-width: 900px) {
+    .element:nth-child(3) {
+        margin-right: 17px;
+    }
+    .element:nth-child(6) {
+        margin-right: 17px;
+    }
+}
+
 @media screen and (max-width: 655px) {
     .element {
         margin: 0 auto 20px;
