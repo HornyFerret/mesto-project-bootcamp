@@ -3,6 +3,11 @@
     grid-row: 1/2;
     align-self: center;
     margin-top: 5px;
+    border: 1px solid #fff;
+    padding: 0;
+    background-color: #000;
+    min-width: 24px;
+    height: 24px;
 }
 
 .profile__info-picture:hover {
@@ -12,7 +17,8 @@
 
 @media screen and (max-width: 655px) {
     .profile__info-picture {
-        max-width: 18px;
         margin-top: 0;
+        min-width: 18px;
+        height: 18px;
     }
 }

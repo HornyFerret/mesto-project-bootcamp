@@ -2,8 +2,8 @@
 let saveButton = document.querySelector('.popup__button');
 
 function addInput() {
-    let name = document.querySelector('.popup__input-first');
-    let profesion = document.querySelector('.popup__input-second');
+    let name = document.getElementById("name");
+    let profesion = document.getElementById("proffesion");
     let nameNew = document.querySelector('.profile__main-text');
     let profesionNew = document.querySelector('.profile__text');
   

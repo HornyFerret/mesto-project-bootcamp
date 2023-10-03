@@ -1,0 +1,21 @@
+.element {
+    max-width: 282px;
+    border-radius: 3%;
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 0 20px 0;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 655px) {
+    .element {
+        margin: 0 auto 20px;
+    }
+    .element:last-child {
+        margin-bottom: 0;
+    }
+}

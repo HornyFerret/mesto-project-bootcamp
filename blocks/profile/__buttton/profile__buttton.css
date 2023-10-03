@@ -1,0 +1,10 @@
+.profile__buttton {
+    min-width: 14px;
+}
+
+@media screen and (max-width: 655px) {
+    .profile__buttton {
+        max-width: 16px;
+        margin-top: 1px;
+    }
+}

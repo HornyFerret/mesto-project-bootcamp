@@ -9,7 +9,8 @@
     color: #fff;
     padding: 15px 0 12px;
     margin: 44px 0 37px;
-    border-radius: 1px;
+    border-radius: 2px;
+    border: none;
 }
 
 .popup__button:hover {

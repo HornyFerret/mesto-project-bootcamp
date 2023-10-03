@@ -1,0 +1,6 @@
+.element__image {
+    align-self: flex-start;
+    object-fit: contain;
+    width: 282px;
+    height: 282px;
+}
