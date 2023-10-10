@@ -1,0 +1,14 @@
+.element__delete-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: none;
+    padding: 0;
+    background: none;
+    z-index: 2;
+}
+
+.element__delete-icon:hover {
+    opacity: 50%;
+    cursor: pointer;
+}

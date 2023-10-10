@@ -61,42 +61,39 @@ closePopup.addEventListener('click', function () {
   closePlace(popup);
 });
 
-// like
-
-const likeButton = document.querySelectorAll('#like');
-let likeButtonMassive = Array.from(likeButton);
-
-likeButtonMassive.forEach(function (item) {
-  item.addEventListener('click', function (evt){
-    const eventTarget = evt.target;
-    eventTarget.classList.toggle('element__like_active');
-  });
-  return item;
-});
-
 // add place card
 
 const namePlace = document.getElementById("name-place");
 const linkPicture = document.getElementById("link-picture");
-const openPlacePopup = document.getElementById("place");
+const placePopup = document.getElementById("place");
 const closePlacePopup = document.getElementById("place-close");
 const savePlacePopup = document.getElementById("place-save");
 const elements = document.querySelector('.elements');
 const element = document.querySelector('#new_element').content;
 
-
 addPlace.addEventListener('click', function(){
-  openPlace(openPlacePopup);
+  openPlace(placePopup);
 });
 
 closePlacePopup.addEventListener('click', function(){
-  closePlace(openPlacePopup);
+  closePlace(placePopup);
 });
 
+function deleteElementButton(item) {
+  item.remove();
+};
+
+// functions to add new elements
 function changeElement(itemText, itemPhoto) {
   const elementClone = element.querySelector('.element').cloneNode(true);
   elementClone.querySelector('.element__text').textContent = itemText;
   elementClone.querySelector('.element__image').src = itemPhoto;
+  const deleteButton = elementClone.querySelector('.element__delete-icon');
+  deleteButton.addEventListener('click', () => deleteElementButton(elementClone));
+  const likeButton = elementClone.querySelector('.element__like');
+  likeButton.addEventListener('click', function () {
+    likeButton.classList.toggle('element__like_active');
+  });
   return elementClone;
 };
 
@@ -104,11 +101,22 @@ function addOnElements(element) {
   elements.prepend(element);
 };
 
+// thats massive elements
 initialCards.forEach((item) => {
  addOnElements(changeElement(item.name, item.link));
 });
 
+// thats new eelement from pepole
 
+function handleSubmitPlace(evt) {
+  evt.preventDefault();
+  addOnElements(changeElement(namePlace.value, linkPicture.value));
+  closePlace(placePopup);
+  namePlace.value = '';
+  linkPicture.value = '';
+};
+
+placePopup.addEventListener('submit', handleSubmitPlace);
 
 
 
