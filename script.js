@@ -68,7 +68,7 @@ const linkPicture = document.getElementById("link-picture");
 const placePopup = document.getElementById("place");
 const closePlacePopup = document.getElementById("place-close");
 const savePlacePopup = document.getElementById("place-save");
-const elements = document.querySelector('.elements');
+const elements = document.querySelector('.elements');4
 const element = document.querySelector('#new_element').content;
 
 addPlace.addEventListener('click', function(){
