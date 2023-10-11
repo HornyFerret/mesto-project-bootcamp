@@ -37,7 +37,9 @@ function openPlace(item) {
 };
 function closePlace(item) {
   item.classList.remove("popup_opened");
+  item.classList.add("popup_closet");
 };
+
 
   // change name
 let nameChange = document.getElementById("name");
@@ -68,7 +70,7 @@ const linkPicture = document.getElementById("link-picture");
 const placePopup = document.getElementById("place");
 const closePlacePopup = document.getElementById("place-close");
 const savePlacePopup = document.getElementById("place-save");
-const elements = document.querySelector('.elements');4
+const elements = document.querySelector('.elements');
 const element = document.querySelector('#new_element').content;
 
 addPlace.addEventListener('click', function(){
@@ -88,6 +90,7 @@ function changeElement(itemText, itemPhoto) {
   const elementClone = element.querySelector('.element').cloneNode(true);
   elementClone.querySelector('.element__text').textContent = itemText;
   elementClone.querySelector('.element__image').src = itemPhoto;
+  elementClone.querySelector('.element__image').alt = itemText;
   const deleteButton = elementClone.querySelector('.element__delete-icon');
   deleteButton.addEventListener('click', () => deleteElementButton(elementClone));
   const likeButton = elementClone.querySelector('.element__like');
@@ -118,7 +121,30 @@ function handleSubmitPlace(evt) {
 
 placePopup.addEventListener('submit', handleSubmitPlace);
 
+// i hate mushrooms
+
+// popup fith picture
+
+const elementPicture = document.querySelectorAll('.element__image');
+const picturePopup = document.getElementById("picture");
+const closePicturePopup = document.querySelector('.popup__close_pic');
+
+let elementPictureMassive = Array.from(elementPicture)
+
+elementPictureMassive.forEach(function (item){
+  item.addEventListener('click', function() {
+    picturePopup.querySelector('.popup__image').src = item.src;
+    picturePopup.querySelector('.popup__caption').textContent = item.alt;
+    openPlace(picturePopup);
+  });
+  return item;
+});
+
+closePicturePopup.addEventListener('click', function(){
+  closePlace(picturePopup);
+});
 
 
+// visability transition
 
 

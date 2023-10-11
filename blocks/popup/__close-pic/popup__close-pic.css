@@ -1,5 +1,5 @@
 .popup__close-pic {
-    min-width: 20px;
+    width: 32px;
 }
 
 @media screen and (max-width: 655px) {

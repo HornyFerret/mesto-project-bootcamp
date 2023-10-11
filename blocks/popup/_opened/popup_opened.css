@@ -1,3 +1,16 @@
+@keyframes addIn {
+    from {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 .popup_opened {
     display: flex;
+    animation: addIn 0.3s linear;
 }
