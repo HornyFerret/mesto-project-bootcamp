@@ -34,6 +34,7 @@ const initialCards = [
 // function for all page
 function openPlace(item) {
   item.classList.add("popup_opened");
+  item.classList.remove("popup_closet");
 };
 function closePlace(item) {
   item.classList.remove("popup_opened");

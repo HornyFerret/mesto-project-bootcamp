@@ -1,11 +1,10 @@
 .popup__container-image {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-left: 50%;
     margin-right: -50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%,-1%);
     align-self: center;
     max-width: 75vw;
     max-height: 75vh;
-    margin-top: 80%;
 }
