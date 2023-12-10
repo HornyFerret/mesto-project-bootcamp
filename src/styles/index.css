@@ -43,7 +43,6 @@
 
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
-@import url(../blocks/popup/_closet/popup_closet.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__close/popup__close.css);
 @import url(../blocks/popup/__close-pic/popup__close-pic.css);
@@ -58,3 +57,34 @@
 
 /* * { outline: 1px solid red; } */
 
+.popup__input_noname {
+    border-bottom: 1px solid rgba(255, 0, 0);
+}
+
+.popup__button_grey {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: center;
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.5);
+    padding: 15px 0 12px;
+    margin: 44px 0 37px;
+    border-radius: 2px;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+.popup__form_incorrect {
+    display: block;
+    color: red;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
