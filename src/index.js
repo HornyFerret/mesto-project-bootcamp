@@ -3,14 +3,14 @@
 // включение валидации вызовом enableValidation
 // все настройки передаются при вызове
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
+// enableValidation({
+//   formSelector: '.popup__form',
+//   inputSelector: '.popup__input',
+//   submitButtonSelector: '.popup__button',
+//   inactiveButtonClass: 'popup__button_disabled',
+//   inputErrorClass: 'popup__input_type_error',
+//   errorClass: 'popup__error_visible'
+// });
 
 import './styles/index.css'; // импорт главного файла стилей
 const changeName = document.querySelector('.profile__info-picture');
@@ -118,10 +118,10 @@ changeName.addEventListener('click', function (evt) {
 
 const popupForm = document.querySelector('.popup__form');
 
+
 popupForm.addEventListener('input', function (evt){
   evt.preventDefault();
-  let wrongInputRemove = document.querySelector('.popup__form_incorrect');
-  
+  const wrongInputRemove = document.querySelector('.popup__form_incorrect');
   if (checkInputName(nameChange) == true) {
     if (wrongInputRemove) {
       wrongInputRemove.remove();
@@ -145,7 +145,7 @@ popupForm.addEventListener('input', function (evt){
   if (checkInputName(nameChange) == true && checkInputProf(profesion) == true) {
     saveButton.classList.remove("popup__button_grey");
     saveButton.classList.add("popup__button");
-  }
+  };
 // сохранение попапа
   saveButton.addEventListener('click', function (evt) {
     evt.preventDefault();
@@ -173,16 +173,20 @@ closePopup.addEventListener('click', function () {
 
 // add place card
 
-const namePlace = document.getElementById("name-place");
-const linkPicture = document.getElementById("link-picture");
+let namePlace = document.getElementById("name-place");
+let linkPicture = document.getElementById("link-picture");
 const placePopup = document.getElementById("place");
+const plaseForm = document.getElementById("form-Place");
 const closePlacePopup = document.getElementById("place-close");
-// const savePlacePopup = document.getElementById("place-save");
+const savePlaceButton = document.getElementById("place-save");
 const elements = document.querySelector('.elements');
 const element = document.querySelector('#new_element').content;
 
+
 addPlace.addEventListener('click', function(){
   openPlace(placePopup);
+  // wrongInputPlase(namePlace);
+  // wrongInputPlase(linkPicture);
 });
 
 closePlacePopup.addEventListener('click', function(){
@@ -218,7 +222,49 @@ initialCards.forEach((item) => {
 });
 
 // thats new eelement from pepole
+// функции проверки инпутов на правильность ввода
+function checkNewPlaceName(item) {
+  if(item.value.length <= 2) {
+    return false;
+  }
+  else if(item.value.length === 0) {
+    return false;
+  }
+  else if(item.value.length >= 30) {
+    return false;
+  }
+  else {
+    return true;
+  }
 
+};
+function checkNewPlaceLink(item) {
+  if(item.value.length <= 2) {
+    return false;
+  }
+  else if(item.value.length === 0) {
+    return false;
+  }
+  else if(item.value.length >= 30) {
+    return false;
+  }
+  else {
+    return true;
+  }
+};
+
+function wrongInputPlase(item) {
+  let wrongInput = document.createElement('div');
+  item.after(wrongInput);
+  wrongInput.textContent='Вы пропустили это поле.';
+  wrongInput.classList.add("popup__form_incorrect");
+  item.classList.add("popup__input_noname");
+  savePlaceButton.classList.remove("popup__button");
+  savePlaceButton.classList.add("popup__button_grey");
+
+};
+
+// функция сохранения карточки
 function handleSubmitPlace(evt) {
   evt.preventDefault();
   addOnElements(changeElement(namePlace.value, linkPicture.value));
@@ -227,7 +273,41 @@ function handleSubmitPlace(evt) {
   linkPicture.value = '';
 };
 
-placePopup.addEventListener('submit', handleSubmitPlace);
+// сохранение карточки в случае ее правильности
+
+plaseForm.addEventListener('input', function (evt){
+  evt.preventDefault();
+  const wrongInputRemove = document.querySelector('.popup__form_incorrect');
+
+  if (checkNewPlaceName(namePlace) == true) {
+    namePlace.classList.remove("popup__input_noname");
+  }
+  else {
+    if (wrongInputRemove) {
+      wrongInputRemove.remove();
+    };
+    namePlace.addEventListener('input',wrongInputPlase(namePlace));
+  };
+ 
+  if (checkNewPlaceLink(linkPicture) == true) {
+    linkPicture.classList.remove("popup__input_noname");
+  }
+  else {
+    debugger
+    if (wrongInputRemove) {
+      wrongInputRemove.remove();
+    };
+    linkPicture.addEventListener('input',wrongInputPlase(linkPicture));
+  };
+
+  if (checkNewPlaceName(namePlace) == true && checkNewPlaceLink(linkPicture) == true) {
+    saveButton.classList.remove("popup__button_grey");
+    saveButton.classList.add("popup__button");
+    placePopup.addEventListener('submit', handleSubmitPlace);
+  };
+
+});
+
 
 // i hate mushrooms
 
