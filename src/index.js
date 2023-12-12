@@ -281,12 +281,13 @@ plaseForm.addEventListener('input', function (evt){
 
   if (checkNewPlaceName(namePlace) == true) {
     namePlace.classList.remove("popup__input_noname");
+    
   }
   else {
     if (wrongInputRemove) {
       wrongInputRemove.remove();
     };
-    namePlace.addEventListener('input',wrongInputPlase(namePlace));
+    wrongInputPlase(namePlace);
   };
  
   if (checkNewPlaceLink(linkPicture) == true) {
@@ -297,13 +298,13 @@ plaseForm.addEventListener('input', function (evt){
     if (wrongInputRemove) {
       wrongInputRemove.remove();
     };
-    linkPicture.addEventListener('input',wrongInputPlase(linkPicture));
+    wrongInputPlase(linkPicture);
   };
+ 
+  
 
   if (checkNewPlaceName(namePlace) == true && checkNewPlaceLink(linkPicture) == true) {
-    saveButton.classList.remove("popup__button_grey");
-    saveButton.classList.add("popup__button");
-    placePopup.addEventListener('submit', handleSubmitPlace);
+    
   };
 
 });
