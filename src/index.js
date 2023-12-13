@@ -12,7 +12,6 @@
 //   errorClass: 'popup__error_visible'
 // });
 
-import { validate } from 'webpack';
 import './styles/index.css'; // импорт главного файла стилей
 const changeName = document.querySelector('.profile__info-picture');
 const addPlace = document.querySelector('.profile__add-button');

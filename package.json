@@ -1,31 +1,49 @@
 {
-  "name": "yandex.praktikum",
-  "version": "0.0.1",
-  "description": "Learning platform",
-  "main": "index.js",
+  "name": "my-webpack-project",
+  "version": "1.0.0",
+  "description": "My webpack project",
+  "private": true,
   "scripts": {
-    "build": "webpack --mode production",
-    "dev": "webpack serve"
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve"
   },
-  "author": "HornyFerret",
+  "repository": {
+    "type": "git",
+    "url": "wbf-cohort-15"
+  },
+  "author": "",
   "license": "ISC",
   "dependencies": {
-    "core-js": "^3.34.0",
-    "jquery": "^3.7.1"
+    "browserify-zlib": "^0.2.0",
+    "crypto": "^1.0.1",
+    "crypto-browserify": "^3.12.0",
+    "https-browserify": "^1.0.0",
+    "jquery": "^3.7.1",
+    "node-polyfill-webpack-plugin": "^3.0.0",
+    "path": "^0.12.7",
+    "stream-http": "^3.2.0",
+    "uri": "^0.1.0",
+    "util": "^0.12.5"
   },
   "devDependencies": {
     "@babel/core": "^7.23.2",
     "@babel/preset-env": "^7.23.2",
+    "@webpack-cli/generators": "^3.0.7",
     "autoprefixer": "^10.4.16",
     "babel-loader": "^9.1.3",
-    "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.8.1",
-    "cssnano": "^6.0.1",
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.6",
+    "postcss": "^8.4.31",
     "postcss-loader": "^7.3.3",
+    "prettier": "^3.1.1",
+    "style-loader": "^3.3.3",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
+    "webpack-dev-server": "^4.15.1",
+    "workbox-webpack-plugin": "^7.0.0"
   }
 }
