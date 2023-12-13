@@ -12,6 +12,7 @@
 //   errorClass: 'popup__error_visible'
 // });
 
+import { validate } from 'webpack';
 import './styles/index.css'; // импорт главного файла стилей
 const changeName = document.querySelector('.profile__info-picture');
 const addPlace = document.querySelector('.profile__add-button');
@@ -240,13 +241,7 @@ function checkNewPlaceName(item) {
 };
 function checkNewPlaceLink(item) {
   if(item.value.length <= 2) {
-    return false;
-  }
-  else if(item.value.length === 0) {
-    return false;
-  }
-  else if(item.value.length >= 30) {
-    return false;
+  
   }
   else {
     return true;
@@ -301,7 +296,6 @@ plaseForm.addEventListener('input', function (evt){
     wrongInputPlase(linkPicture);
   };
  
-  
 
   if (checkNewPlaceName(namePlace) == true && checkNewPlaceLink(linkPicture) == true) {
     
