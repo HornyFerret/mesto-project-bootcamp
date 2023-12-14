@@ -236,7 +236,7 @@ function checkNewPlaceName(item) {
 
 };
 function checkNewPlaceLink(item) {
-  if (item.value.length <= 2) {
+  if (item.validity.typeMismatch === true) {
     return false;
   }
   else {
