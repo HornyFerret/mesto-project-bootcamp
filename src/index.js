@@ -185,8 +185,8 @@ const element = document.querySelector('#new_element').content;
 
 addPlace.addEventListener('click', function(){
   openPlace(placePopup);
-  // wrongInputPlase(namePlace);
-  // wrongInputPlase(linkPicture);
+  wrongInputPlase(namePlace);
+  wrongInputPlase(linkPicture);
 });
 
 closePlacePopup.addEventListener('click', function(){
@@ -224,10 +224,7 @@ initialCards.forEach((item) => {
 // thats new eelement from pepole
 // функции проверки инпутов на правильность ввода
 function checkNewPlaceName(item) {
-  if(item.value.length <= 2) {
-    return false;
-  }
-  else if(item.value.length === 0) {
+  if (item.value.length <= 2) {
     return false;
   }
   else if(item.value.length >= 30) {
@@ -239,8 +236,8 @@ function checkNewPlaceName(item) {
 
 };
 function checkNewPlaceLink(item) {
-  if(item.value.length <= 2) {
-  
+  if (item.value.length <= 2) {
+    return false;
   }
   else {
     return true;
@@ -255,8 +252,8 @@ function wrongInputPlase(item) {
   item.classList.add("popup__input_noname");
   savePlaceButton.classList.remove("popup__button");
   savePlaceButton.classList.add("popup__button_grey");
-
 };
+
 
 // функция сохранения карточки
 function handleSubmitPlace(evt) {
@@ -271,34 +268,42 @@ function handleSubmitPlace(evt) {
 
 plaseForm.addEventListener('input', function (evt){
   evt.preventDefault();
-  const wrongInputRemove = document.querySelector('.popup__form_incorrect');
+  const wrongInput = document.querySelector('.popup__form_incorrect');
+  const wrongInputRemove = wrongInput.closest('.popup__form_incorrect');
 
   if (checkNewPlaceName(namePlace) == true) {
+    wrongInputRemove.remove();
     namePlace.classList.remove("popup__input_noname");
-    
-  }
+  } 
   else {
-    if (wrongInputRemove) {
-      wrongInputRemove.remove();
-    };
     wrongInputPlase(namePlace);
-  };
- 
+    wrongInputRemove.remove();
+  }
+
   if (checkNewPlaceLink(linkPicture) == true) {
+    wrongInputRemove.remove();
     linkPicture.classList.remove("popup__input_noname");
+    // savePlaceButton.classList.remove("popup__button_grey");
+    // savePlaceButton.classList.add("popup__button");
   }
   else {
-    debugger
-    if (wrongInputRemove) {
-      wrongInputRemove.remove();
-    };
     wrongInputPlase(linkPicture);
+    wrongInputRemove.remove();
   };
+
+ 
+  savePlaceButton.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    if (checkNewPlaceName(namePlace) == true && checkNewPlaceLink(linkPicture) == true) {
+      handleSubmitPlace(evt);
+    }
+    else {
+      console.log ("Неверно");
+    };
+  });
  
 
-  if (checkNewPlaceName(namePlace) == true && checkNewPlaceLink(linkPicture) == true) {
-    
-  };
+
 
 });
 
