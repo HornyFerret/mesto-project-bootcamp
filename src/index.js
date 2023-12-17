@@ -56,46 +56,23 @@ function closePlace(item) {
   item.classList.add("popup_closet");
 };
 
-//функция проверки имени на правильность набора
-
-function checkInputName(item) {
-  if (item.value.length === 0) {
-    return false;
-  }
-  else if(item.value.length <= 2) {
-    return false;
-  }
-  else if(item.value.length >= 40) {
-    return false;
-  }
-  else {
-    return true;
-  }
-};
-
-function checkInputProf(item) {
-  if (item.value.length === 0) {
-    return false;
-  }
-  else if(item.value.length <= 2) {
-    return false;
-  }
-  else if(item.value.length >= 200) {
-    return false;
-  }
-  else {
-    return true;
-  }
-};
 
 // функция добавления объявления об ошибке в имени
 
-function wrongInput(item) {
-  let wrongInput = document.createElement('div');
-  item.after(wrongInput);
-  wrongInput.textContent='Вы пропустили это поле.';
-  wrongInput.classList.add("popup__form_incorrect");
+function wrongInputOn(item) {
+  let formError = document.querySelector(`.${item.id}_incorrect`);
   item.classList.add("popup__input_noname");
+  formError.textContent = item.validationMessage;
+  formError.classList.add('popup__span_incorrect');
+  saveButton.classList.remove("popup__button");
+  saveButton.classList.add("popup__button_grey");
+};
+
+function wrongInputOff(item) {
+  let formError = document.querySelector(`.${item.id}_incorrect`);
+  item.classList.remove("popup__input_noname");
+  formError.classList.remove("popup__span_incorrect");
+  formError.textContent = '';
   saveButton.classList.remove("popup__button");
   saveButton.classList.add("popup__button_grey");
 };
@@ -121,54 +98,43 @@ const popupForm = document.querySelector('.popup__form');
 
 popupForm.addEventListener('input', function (evt){
   evt.preventDefault();
-  const wrongInputRemove = document.querySelector('.popup__form_incorrect');
-  if (checkInputName(nameChange) == true) {
-    if (wrongInputRemove) {
-      wrongInputRemove.remove();
-    };
-    nameChange.classList.remove("popup__input_noname");
+  if (nameChange.validity.valid == true) {
+    wrongInputOff(nameChange);
   }
   else {
-    nameChange.addEventListener('change', wrongInput(nameChange));
+    wrongInputOn(nameChange);
   };
 
-  if (checkInputProf(profesion) == true) {
-    if (wrongInputRemove) {
-      wrongInputRemove.remove();
-    };
-    profesion.classList.remove("popup__input_noname");
+  if (profesion.validity.valid == true) {
+    wrongInputOff(profesion);
   }
   else {
-    profesion.addEventListener('change', wrongInput(profesion));
+    wrongInputOn(profesion);
   };
 
-  if (checkInputName(nameChange) == true && checkInputProf(profesion) == true) {
+// сохранение попапа
+
+  if (nameChange.validity.valid == true && profesion.validity.valid == true) {
     saveButton.classList.remove("popup__button_grey");
     saveButton.classList.add("popup__button");
+    saveButton.addEventListener('click', function (evt) {
+      evt.preventDefault();
+      if (nameChange.validity.valid == true && profesion.validity.valid == true) {
+        nameNew.textContent = `${nameChange.value}`;
+        profesionNew.textContent = `${profesion.value}`;
+        closePlace(popup);
+      }
+      else {
+        console.log("Неверно набрано");
+      };
+    });
   };
-// сохранение попапа
-  saveButton.addEventListener('click', function (evt) {
-    evt.preventDefault();
-    if (checkInputName(nameChange) == true && checkInputProf(profesion) == true) {
-      nameNew.textContent = `${nameChange.value}`;
-      profesionNew.textContent = `${profesion.value}`;
-      closePlace(popup);
-    }
-    else {
-      console.log("Неверно набрано");
-    };
-  });
 });
-
-
 
 // закрытие поп-апа
 closePopup.addEventListener('click', function () {
   closePlace(popup);
 });
-
-
-
 
 
 // add place card
@@ -185,11 +151,10 @@ const element = document.querySelector('#new_element').content;
 
 addPlace.addEventListener('click', function(){
   openPlace(placePopup);
-  wrongInputPlase(namePlace);
-  wrongInputPlase(linkPicture);
 });
 
 closePlacePopup.addEventListener('click', function(){
+  plaseForm.reset();
   closePlace(placePopup);
 });
 
@@ -222,37 +187,6 @@ initialCards.forEach((item) => {
 });
 
 // thats new eelement from pepole
-// функции проверки инпутов на правильность ввода
-function checkNewPlaceName(item) {
-  if (item.value.length <= 2) {
-    return false;
-  }
-  else if(item.value.length >= 30) {
-    return false;
-  }
-  else {
-    return true;
-  }
-
-};
-function checkNewPlaceLink(item) {
-  if (item.validity.typeMismatch === true) {
-    return false;
-  }
-  else {
-    return true;
-  }
-};
-
-function wrongInputPlase(item) {
-  let wrongInput = document.createElement('div');
-  item.after(wrongInput);
-  wrongInput.textContent='Вы пропустили это поле.';
-  wrongInput.classList.add("popup__form_incorrect");
-  item.classList.add("popup__input_noname");
-  savePlaceButton.classList.remove("popup__button");
-  savePlaceButton.classList.add("popup__button_grey");
-};
 
 
 // функция сохранения карточки
@@ -262,48 +196,33 @@ function handleSubmitPlace(evt) {
   closePlace(placePopup);
   namePlace.value = '';
   linkPicture.value = '';
+  plaseForm.reset();
 };
 
 // сохранение карточки в случае ее правильности
 
 plaseForm.addEventListener('input', function (evt){
   evt.preventDefault();
-  const wrongInput = document.querySelector('.popup__form_incorrect');
-  const wrongInputRemove = wrongInput.closest('.popup__form_incorrect');
 
-  if (checkNewPlaceName(namePlace) == true) {
-    wrongInputRemove.remove();
-    namePlace.classList.remove("popup__input_noname");
-  } 
-  else {
-    wrongInputPlase(namePlace);
-    wrongInputRemove.remove();
-  }
-
-  if (checkNewPlaceLink(linkPicture) == true) {
-    wrongInputRemove.remove();
-    linkPicture.classList.remove("popup__input_noname");
-    // savePlaceButton.classList.remove("popup__button_grey");
-    // savePlaceButton.classList.add("popup__button");
+  if (namePlace.validity.valid == true) {
+    wrongInputOff(namePlace);
   }
   else {
-    wrongInputPlase(linkPicture);
-    wrongInputRemove.remove();
+    wrongInputOn(namePlace);
   };
 
- 
-  savePlaceButton.addEventListener('click', function (evt) {
-    evt.preventDefault();
-    if (checkNewPlaceName(namePlace) == true && checkNewPlaceLink(linkPicture) == true) {
-      handleSubmitPlace(evt);
-    }
-    else {
-      console.log ("Неверно");
-    };
-  });
- 
+  if (linkPicture.validity.valid == true) {
+    wrongInputOff(linkPicture);
+  }
+  else {
+    wrongInputOn(linkPicture);
+  };
 
-
+  if (namePlace.validity.valid == true && linkPicture.validity.valid == true) {
+    savePlaceButton.classList.remove("popup__button_grey");
+    savePlaceButton.classList.add("popup__button");
+    savePlaceButton.addEventListener('click', () => handleSubmitPlace(evt));
+  };
 
 });
 
@@ -334,6 +253,5 @@ closePicturePopup.addEventListener('click', function(){
 });
 
 
-// visability transition
 
 
