@@ -2,7 +2,7 @@ import '../styles/index.css';
 import {plaseForm,namePlace,saveButton,savePlaceButton,linkPicture,wrongInputOn,wrongInputOff,openPlace,closePlace,saveButtonOff,saveButtonOn,saveButtonPlaceOff,saveButtonPlaceOn,placePopupReset} from './utils.js';
 import * as modal from './modal.js';
 import * as validate from './validate.js';
-import {initialCards,deleteElementButton,changeElement,addOnElements,massiveElement} from'./card.js';
+import {massiveElement} from'./card.js';
 
 //modal
 const closePlacePopup = modal.closePlacePopup;

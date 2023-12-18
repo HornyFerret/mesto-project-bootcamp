@@ -4,7 +4,7 @@ export const enableValidation = {
     inputSelector: 'popup__input',
     submitButtonSelector: 'popup__button',
     inactiveButtonClass: 'popup__button_disabled',
-    inputErrorClass: '${inputSelector.id}_incorrect',
+    inputErrorClass: 'popup__incorrect_${inputSelector.id}',
     errorClass: 'popup__error_visible'
 };
 export const saveButton = document.getElementById("saveButton");
@@ -17,14 +17,14 @@ export const plaseForm = document.getElementById("form-Place");
 
 // функция добавления объявления об ошибке в имени
 export function wrongInputOn(item) {
-    let formError = document.querySelector(`.${item.id}_incorrect`);
+    let formError = document.querySelector(`.popup__incorrect_${item.id}`);
     item.classList.add("popup__input_noname");
     formError.classList.add(enableValidation.errorClass);
     formError.textContent = item.validationMessage;
 };
 
 export function wrongInputOff(item) {
-    let formError = document.querySelector(`.${item.id}_incorrect`);
+    let formError = document.querySelector(`.popup__incorrect_${item.id}`);
     item.classList.remove("popup__input_noname");
     formError.classList.remove(enableValidation.errorClass);
     formError.textContent = '';
