@@ -2,20 +2,22 @@
 
 // включение валидации вызовом enableValidation
 // все настройки передаются при вызове
+// enableValidation.formSelector
 
-// enableValidation({
-//   formSelector: '.popup__form',
-//   inputSelector: '.popup__input',
-//   submitButtonSelector: '.popup__button',
-//   inactiveButtonClass: 'popup__button_disabled',
-//   inputErrorClass: 'popup__input_type_error',
-//   errorClass: 'popup__error_visible'
-// });
+const enableValidation = {
+  formSelector: 'popup__form',
+  inputSelector: 'popup__input',
+  submitButtonSelector: 'popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: '${inputSelector.id}_incorrect',
+  errorClass: 'popup__error_visible'
+};
 
 import './styles/index.css'; // импорт главного файла стилей
 const changeName = document.querySelector('.profile__info-picture');
 const addPlace = document.querySelector('.profile__add-button');
 const popup = document.querySelector('.popup');
+const popupForm = document.querySelector('.popup__form');
 const closePopup = document.querySelector('.popup__close');
 const saveButton = document.getElementById("saveButton");
 
@@ -62,22 +64,33 @@ function closePlace(item) {
 function wrongInputOn(item) {
   let formError = document.querySelector(`.${item.id}_incorrect`);
   item.classList.add("popup__input_noname");
+  formError.classList.add(enableValidation.errorClass);
   formError.textContent = item.validationMessage;
-  formError.classList.add('popup__span-incorrect');
-  saveButton.classList.remove("popup__button");
-  saveButton.classList.add("popup__button_grey");
+  saveButton.classList.remove(enableValidation.submitButtonSelector);
+  saveButton.classList.add(enableValidation.inactiveButtonClass);
 };
 
 function wrongInputOff(item) {
   let formError = document.querySelector(`.${item.id}_incorrect`);
   item.classList.remove("popup__input_noname");
-  formError.classList.remove("popup__span-incorrect");
+  formError.classList.remove(enableValidation.errorClass);
   formError.textContent = '';
-  saveButton.classList.remove("popup__button");
-  saveButton.classList.add("popup__button_grey");
 };
 
-  // переменные изменения имени и открытия поп-апа с изменением имени
+//функции изменения состояния кнопки сохранения
+// кнопка неактивна
+function saveButtonOff() {
+  saveButton.classList.remove(enableValidation.submitButtonSelector);
+  saveButton.classList.add(enableValidation.inactiveButtonClass);
+};
+// кнопка активна
+function saveButtonOn() {
+  saveButton.classList.add(enableValidation.submitButtonSelector);
+  saveButton.classList.remove(enableValidation.inactiveButtonClass);
+};
+
+
+// переменные изменения имени и открытия поп-апа с изменением имени
 
 let nameChange = document.getElementById("name");
 let profesion = document.getElementById("proffesion");
@@ -93,15 +106,13 @@ changeName.addEventListener('click', function (evt) {
 
 // слушатель изменения имени и профессии без ошибок и с сохранением
 
-const popupForm = document.querySelector('.popup__form');
-
-
 popupForm.addEventListener('input', function (evt){
   evt.preventDefault();
   if (nameChange.validity.valid == true) {
     wrongInputOff(nameChange);
   }
   else {
+    saveButtonOff();
     wrongInputOn(nameChange);
   };
 
@@ -109,14 +120,14 @@ popupForm.addEventListener('input', function (evt){
     wrongInputOff(profesion);
   }
   else {
+    saveButtonOff();
     wrongInputOn(profesion);
   };
 
 // сохранение попапа
 
   if (nameChange.validity.valid == true && profesion.validity.valid == true) {
-    saveButton.classList.remove("popup__button_grey");
-    saveButton.classList.add("popup__button");
+    saveButtonOn();
     saveButton.addEventListener('click', function (evt) {
       evt.preventDefault();
       if (nameChange.validity.valid == true && profesion.validity.valid == true) {
@@ -154,7 +165,7 @@ addPlace.addEventListener('click', function(){
 });
 
 closePlacePopup.addEventListener('click', function(){
-  plaseForm.reset();
+  placePopupReset();
   closePlace(placePopup);
 });
 
@@ -196,6 +207,25 @@ function handleSubmitPlace(evt) {
   closePlace(placePopup);
   namePlace.value = '';
   linkPicture.value = '';
+  placePopupReset();
+};
+
+//функции изменения состояния кнопки сохранения
+// кнопка неактивна
+function saveButtonPlaceOff() {
+  savePlaceButton.classList.remove(enableValidation.submitButtonSelector);
+  savePlaceButton.classList.add(enableValidation.inactiveButtonClass);
+};
+// кнопка активна
+function saveButtonPlaceOn() {
+  savePlaceButton.classList.add(enableValidation.submitButtonSelector);
+  savePlaceButton.classList.remove(enableValidation.inactiveButtonClass);
+};
+
+// функция обновления попапа добавления карточки
+function placePopupReset() {
+  wrongInputOff(namePlace);
+  wrongInputOff(linkPicture);
   plaseForm.reset();
 };
 
@@ -208,6 +238,7 @@ plaseForm.addEventListener('input', function (evt){
     wrongInputOff(namePlace);
   }
   else {
+    saveButtonPlaceOff();
     wrongInputOn(namePlace);
   };
 
@@ -215,12 +246,12 @@ plaseForm.addEventListener('input', function (evt){
     wrongInputOff(linkPicture);
   }
   else {
+    saveButtonPlaceOff();
     wrongInputOn(linkPicture);
   };
 
   if (namePlace.validity.valid == true && linkPicture.validity.valid == true) {
-    savePlaceButton.classList.remove("popup__button_grey");
-    savePlaceButton.classList.add("popup__button");
+    saveButtonPlaceOn();
     savePlaceButton.addEventListener('click', () => handleSubmitPlace(evt));
   };
 
@@ -256,7 +287,7 @@ closePicturePopup.addEventListener('click', function(){
 // с помощью Esc
 document.addEventListener('keydown', function (evt) {
   if (evt.key === "Escape") {
-    console.log('black');
+    placePopupReset();
     closePlace(popup);
     closePlace(placePopup);
     closePlace(picturePopup);
@@ -265,7 +296,7 @@ document.addEventListener('keydown', function (evt) {
 // с помощью кнопки мыши
 document.addEventListener('click', function (evt){
   if (evt.target.classList.contains('popup')) {
-    console.log('black');
+    placePopupReset();
     closePlace(popup);
     closePlace(placePopup);
     closePlace(picturePopup);

@@ -1,4 +1,4 @@
-.popup__span-incorrect {
+.popup__error_visible {
     display: block;
     color: red;
     font-family: 'Inter', 'Arial', sans-serif;

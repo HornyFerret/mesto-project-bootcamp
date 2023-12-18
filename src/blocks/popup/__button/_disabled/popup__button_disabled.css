@@ -1,4 +1,4 @@
-.popup__button_grey {
+.popup__button_disabled {
     font-family: 'Inter', 'Arial', sans-serif;
     font-size: 18px;
     font-weight: 400;
@@ -9,6 +9,14 @@
     color: rgba(0, 0, 0, 0.5);
     padding: 15px 0 12px;
     margin: 44px 0 37px;
-    border-radius: 2px;
     border: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 655px) {
+    .popup__button_disabled {
+        margin: 43px 0 24px;
+        padding: 14px 0;
+        font-size: 14px;
+        line-height: 17px;
+    }
 }
