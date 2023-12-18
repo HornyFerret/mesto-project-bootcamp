@@ -63,7 +63,7 @@ function wrongInputOn(item) {
   let formError = document.querySelector(`.${item.id}_incorrect`);
   item.classList.add("popup__input_noname");
   formError.textContent = item.validationMessage;
-  formError.classList.add('popup__span_incorrect');
+  formError.classList.add('popup__span-incorrect');
   saveButton.classList.remove("popup__button");
   saveButton.classList.add("popup__button_grey");
 };
@@ -71,7 +71,7 @@ function wrongInputOn(item) {
 function wrongInputOff(item) {
   let formError = document.querySelector(`.${item.id}_incorrect`);
   item.classList.remove("popup__input_noname");
-  formError.classList.remove("popup__span_incorrect");
+  formError.classList.remove("popup__span-incorrect");
   formError.textContent = '';
   saveButton.classList.remove("popup__button");
   saveButton.classList.add("popup__button_grey");
@@ -252,6 +252,24 @@ closePicturePopup.addEventListener('click', function(){
   closePlace(picturePopup);
 });
 
-
+// функция закрытия попапа через оверлей
+// с помощью Esc
+document.addEventListener('keydown', function (evt) {
+  if (evt.key === "Escape") {
+    console.log('black');
+    closePlace(popup);
+    closePlace(placePopup);
+    closePlace(picturePopup);
+  }; 
+});
+// с помощью кнопки мыши
+document.addEventListener('click', function (evt){
+  if (evt.target.classList.contains('popup')) {
+    console.log('black');
+    closePlace(popup);
+    closePlace(placePopup);
+    closePlace(picturePopup);
+  };
+});
 
 

@@ -1,0 +1,12 @@
+.popup__span-incorrect {
+    display: block;
+    color: red;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}

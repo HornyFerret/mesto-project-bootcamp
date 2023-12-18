@@ -50,53 +50,12 @@
 @import url(../blocks/popup/__title/popup__title.css);
 @import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/popup/__input/popup__input.css);
+@import url(../blocks/popup/__input/_noname/popup__input_noname.css);
 @import url(../blocks/popup/__button/popup__button.css);
+@import url(../blocks/popup/__button/_grey/popup__button_grey.css);
 @import url(../blocks/popup/__container-image/popup__container-image.css);
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__caption/popup__caption.css);
+@import url(../blocks/popup/__span-incorrect/popup__span-incorrect.css);
 
 /* * { outline: 1px solid red; } */
-
-.popup__input_noname {
-    border-bottom: 1px solid rgba(255, 0, 0);
-}
-
-.popup__button_grey {
-    font-family: 'Inter', 'Arial', sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 22px;
-    letter-spacing: 0em;
-    text-align: center;
-    background-color: #fff;
-    color: rgba(0, 0, 0, 0.5);
-    padding: 15px 0 12px;
-    margin: 44px 0 37px;
-    border-radius: 2px;
-    border: 2px solid rgba(0, 0, 0, 0.5);
-}
-
-.popup__span_incorrect {
-    display: block;
-    color: red;
-    font-family: 'Inter', 'Arial', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 17px;
-    letter-spacing: 0em;
-    text-align: left;
-    margin: 0;
-    padding: 0;
-}
-.popup__input_incorrect {
-    display: block;
-    color: red;
-    font-family: 'Inter', 'Arial', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 17px;
-    letter-spacing: 0em;
-    text-align: left;
-    margin: 0;
-    padding: 0;
-}
