@@ -1,39 +1,34 @@
 import '../styles/index.css';
-import {plaseForm,namePlace,saveButton,savePlaceButton,linkPicture,wrongInputOn,wrongInputOff,openPlace,closePlace,saveButtonOff,saveButtonOn,saveButtonPlaceOff,saveButtonPlaceOn,placePopupReset} from './utils.js';
-import * as modal from './modal.js';
-import * as validate from './validate.js';
-import {massiveElement} from'./card.js';
+import {initialCards} from './initialCards.js';
+import {namePopup,nameChange,profesion,nameNew,profesionNew,placePopup,openPlace,closePlace,placePopupReset,handleSubmitPlace,saveNamePopup} from './modal.js';
+import {enableValidation} from './validate.js';
+import {changeElement,elements,picturePopup,openCard} from'./card.js';
+
+
+const closePlacePopup = document.getElementById("place-close");
+const changeName = document.querySelector('.profile__info-picture');
+const closePopup = document.querySelector('.popup__close');
+const addPlace = document.querySelector('.profile__add-button');
+const closePicturePopup = document.querySelector('.popup__close_pic');
+const saveButtonName = document.getElementById("saveButton");
+const savePlaceButton = document.getElementById("place-save");
 
 //modal
-const closePlacePopup = modal.closePlacePopup;
-const changeName = modal.changeName;
-const popup = modal.popup;
-let nameChange = modal.nameChange;
-let profesion = modal.profesion;
-let nameNew = modal.nameNew;
-let profesionNew = modal.profesionNew;
-const closePopup = modal.closePopup;
-const addPlace = modal.addPlace;
-const placePopup = modal.placePopup;
-const picturePopup = modal.picturePopup;
-const closePicturePopup = modal.closePicturePopup;
-
 // слушатель открытия попапа с именем при клике
-changeName.addEventListener('click', function (evt) {
-  evt.preventDefault();
-  openPlace(popup);
+changeName.addEventListener('click', function () {
+  openPlace(namePopup);
   nameChange.value = nameNew.textContent;
   profesion.value = profesionNew.textContent;
 }); 
 
-
 // слушатель закрытия попапа с именем при клике
 closePopup.addEventListener('click', function () {
-  closePlace(popup);
+  closePlace(namePopup);
 });
 
 // слушатель открытия попапа с местом при клике
 addPlace.addEventListener('click', function(){
+  savePlaceButton.classList.add("popup__button_disabled");
   openPlace(placePopup);
 });
 
@@ -48,8 +43,18 @@ closePlacePopup.addEventListener('click', function(){
 document.addEventListener('keydown', function (evt) {
   if (evt.key === "Escape") {
     placePopupReset();
-    closePlace(popup);      
+    closePlace(namePopup);      
+  };
+});
+document.addEventListener('keydown', function (evt) {
+  if (evt.key === "Escape") {
+    placePopupReset();
     closePlace(placePopup);
+  };
+});
+document.addEventListener('keydown', function (evt) {
+  if (evt.key === "Escape") {
+    placePopupReset();
     closePlace(picturePopup);
   };
 });
@@ -57,10 +62,20 @@ document.addEventListener('keydown', function (evt) {
 document.addEventListener('click', function (evt){
     if (evt.target.classList.contains('popup')) {
         placePopupReset();
-        closePlace(popup);
-        closePlace(placePopup);
-        closePlace(picturePopup);
+        closePlace(namePopup);
     };
+});
+document.addEventListener('click', function (evt){
+  if (evt.target.classList.contains('popup')) {
+      placePopupReset();
+      closePlace(placePopup);
+  };
+});
+document.addEventListener('click', function (evt){
+  if (evt.target.classList.contains('popup')) {
+      placePopupReset();
+      closePlace(picturePopup);
+  };
 });
 
 // слушатель закрытия попапа с картинкой при клике
@@ -68,62 +83,36 @@ closePicturePopup.addEventListener('click', function(){
     closePlace(picturePopup);
 });
 
-
-
-//validate
-const popupForm = validate.popupForm;
-
-// слушатель изменения имени и профессии без ошибок и с сохранением
-popupForm.addEventListener('input', function (evt){
-  evt.preventDefault();
-  if (nameChange.validity.valid == true) {
-    wrongInputOff(nameChange);
-  }
-  else {
-    saveButtonOff();
-    wrongInputOn(nameChange);
-  };
-
-  if (profesion.validity.valid == true) {
-    wrongInputOff(profesion);
-  }
-  else {
-    saveButtonOff();
-    wrongInputOn(profesion);
-  };
-
-  if (nameChange.validity.valid == true && profesion.validity.valid == true) {
-    saveButtonOn();
-    saveButton.addEventListener('click', () => saveNamePopup(evt));
-  };
+// слушатель сохранния при клике на кнопку
+//места
+savePlaceButton.addEventListener('click', function(){
+  debugger
+  handleSubmitPlace();
+  closePlace(picturePopup);
 });
-
-// сохранение карточки в случае ее правильности
-plaseForm.addEventListener('input', function (evt){
-  evt.preventDefault();
-
-  if (namePlace.validity.valid == true) {
-    wrongInputOff(namePlace);
-  }
-  else {
-    saveButtonPlaceOff();
-    wrongInputOn(namePlace);
-  };
-
-  if (linkPicture.validity.valid == true) {
-    wrongInputOff(linkPicture);
-  }
-  else {
-    saveButtonPlaceOff();
-    wrongInputOn(linkPicture);
-  };
-
-  if (namePlace.validity.valid == true && linkPicture.validity.valid == true) {
-    saveButtonPlaceOn();
-    savePlaceButton.addEventListener('click', () => handleSubmitPlace(evt));
-  };
+//имени
+saveButtonName.addEventListener('click', function(){
+  saveNamePopup();
+  closePlace(picturePopup);
 });
 
 
 //card
+// функция вызова карточки на страницу
+function addOnElements(element) {
+  elements.prepend(element);
+  openCard();
+};
+
+// перебор массива
+function massiveElement() {
+  initialCards.forEach((item) => {
+      addOnElements(changeElement(item.name, item.link));
+  });
+};
 massiveElement();
+
+
+// validation
+//document.addEventListener('input', () => enableValidation());
+enableValidation();
