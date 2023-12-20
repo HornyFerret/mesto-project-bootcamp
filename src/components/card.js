@@ -15,8 +15,7 @@ function deleteElementButton(item) {
 };
 
 // функция автоматического добавления карточек из массива
-export function changeElement(itemText, itemPhoto) {
-    debugger
+export function changeElement(itemText, itemPhoto,elementPicture) {
     const elementClone = element.querySelector('.element').cloneNode(true);
     elementClone.querySelector('.element__text').textContent = itemText;
     elementClone.querySelector('.element__image').src = itemPhoto;
@@ -27,18 +26,19 @@ export function changeElement(itemText, itemPhoto) {
     likeButton.addEventListener('click', function () {
         likeButton.classList.toggle('element__like_active');
     });
+
+
     return elementClone;
-
-  };
-
-  // эта функция делает массив из всех добавленных карточек и от крывает попап с любой из вызванных при нажатии
-  export function openCard() {
-   const elementPictureMassive = Array.from(document.querySelectorAll('.element__image'));
-    elementPictureMassive.forEach(function (item){ 
-        item.addEventListener('click', function() { 
-            openPlace(picturePopup);
-            picturePopup.querySelector('.popup__image').src = item.src; 
-            picturePopup.querySelector('.popup__caption').textContent = item.alt; 
-        }); 
-    });
 };
+
+// эта функция делает массив из всех добавленных карточек и от крывает попап с любой из вызванных при нажатии
+export function openCard() {
+    const elementPictureMassive = Array.from(document.querySelectorAll('.element__image'));
+        elementPictureMassive.forEach(function (item){ 
+            item.addEventListener('click', function() { 
+                openPlace(picturePopup);
+                picturePopup.querySelector('.popup__image').src = item.src; 
+                picturePopup.querySelector('.popup__caption').textContent = item.alt; 
+            }); 
+        });
+    };

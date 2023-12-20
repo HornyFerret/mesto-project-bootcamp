@@ -34,7 +34,6 @@ export function placePopupReset() {
 
 // функция сохранения попапа с местом
 export function handleSubmitPlace() {
-    debugger
     // evt.preventDefault();
     closePlace(placePopup);
     elements.prepend(changeElement(namePlace.value, linkPicture.value));

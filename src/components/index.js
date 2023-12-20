@@ -86,8 +86,8 @@ closePicturePopup.addEventListener('click', function(){
 // слушатель сохранния при клике на кнопку
 //места
 savePlaceButton.addEventListener('click', function(){
-  debugger
   handleSubmitPlace();
+  openCard();
   closePlace(picturePopup);
 });
 //имени
@@ -114,5 +114,4 @@ massiveElement();
 
 
 // validation
-//document.addEventListener('input', () => enableValidation());
 enableValidation();
