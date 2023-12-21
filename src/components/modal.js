@@ -12,7 +12,8 @@ export const placePopup = document.getElementById("place");
 export const namePlace = document.getElementById("name-place");
 export const linkPicture = document.getElementById("link-picture");
 export const plaseForm = document.getElementById("form-Place");
-
+export const saveButtonName = document.getElementById("saveButton");
+export const savePlaceButton = document.getElementById("place-save");
 
 
 // функция открытия попапа 
@@ -37,8 +38,6 @@ export function handleSubmitPlace() {
     // evt.preventDefault();
     closePlace(placePopup);
     elements.prepend(changeElement(namePlace.value, linkPicture.value));
-    // namePlace.value = '';
-    // linkPicture.value = '';
     placePopupReset();
 };
 
@@ -49,3 +48,4 @@ export function saveNamePopup(evt) {
     profesionNew.textContent = `${profesion.value}`;
     closePlace(namePopup);
 };
+

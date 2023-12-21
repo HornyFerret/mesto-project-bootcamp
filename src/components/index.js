@@ -1,6 +1,6 @@
 import '../styles/index.css';
 import {initialCards} from './initialCards.js';
-import {namePopup,nameChange,profesion,nameNew,profesionNew,placePopup,openPlace,closePlace,placePopupReset,handleSubmitPlace,saveNamePopup} from './modal.js';
+import {namePopup,nameChange,profesion,nameNew,profesionNew,saveButtonName,savePlaceButton,placePopup,openPlace,closePlace,placePopupReset,handleSubmitPlace,saveNamePopup,linkPicture,namePlace} from './modal.js';
 import {enableValidation} from './validate.js';
 import {changeElement,elements,picturePopup,openCard} from'./card.js';
 
@@ -10,8 +10,6 @@ const changeName = document.querySelector('.profile__info-picture');
 const closePopup = document.querySelector('.popup__close');
 const addPlace = document.querySelector('.profile__add-button');
 const closePicturePopup = document.querySelector('.popup__close_pic');
-const saveButtonName = document.getElementById("saveButton");
-const savePlaceButton = document.getElementById("place-save");
 
 //modal
 // слушатель открытия попапа с именем при клике
@@ -79,23 +77,26 @@ document.addEventListener('click', function (evt){
 });
 
 // слушатель закрытия попапа с картинкой при клике
-closePicturePopup.addEventListener('click', function(){
+closePicturePopup.addEventListener('click', function (){
     closePlace(picturePopup);
 });
 
 // слушатель сохранния при клике на кнопку
 //места
-savePlaceButton.addEventListener('click', function(){
-  handleSubmitPlace();
-  openCard();
-  closePlace(picturePopup);
+savePlaceButton.addEventListener('click', function (){
+  if (namePlace.validity.valid && linkPicture.validity.valid) {
+    handleSubmitPlace();
+    openCard();
+    closePlace(picturePopup);
+  };
 });
 //имени
-saveButtonName.addEventListener('click', function(){
-  saveNamePopup();
-  closePlace(picturePopup);
+saveButtonName.addEventListener('click', function (){
+  if (nameChange.validity.valid && profesion.validity.valid) {
+    saveNamePopup();
+    closePlace(picturePopup);
+  };
 });
-
 
 //card
 // функция вызова карточки на страницу
