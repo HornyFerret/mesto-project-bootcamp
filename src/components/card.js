@@ -1,7 +1,3 @@
-// импорт используемых переменных и функций
-import {openPlace} from './modal.js';
-
-
 // объявление переменных
 const element = document.querySelector('#new_element').content;
 

@@ -1,8 +1,3 @@
-// импорт используемых переменных и функций
-
-// объявление переменных для валидации
-
-
 
 //функции изменения состояния кнопки сохранения
 // кнопка неактивна
@@ -83,20 +78,10 @@ function setEventListeners(
 // експортируемая функция проверки всех форм и инпутов на валидацию
 export function enableValidation({formSelector, ...rest}){
     const formList = Array.from(document.querySelectorAll(formSelector));
-    //console.log (formList);
     formList.forEach((formElement) => {
         setEventListeners(formElement,rest);
     });
     
 };
-
-// enableValidation ({
-//     formSelector: '.popup__form',
-//     inputSelector: '.popup__input',
-//     submitButtonSelector: '.popup__button',
-//     inactiveButtonClass: 'popup__button_disabled',
-//     inputErrorClass: `.popup__error_`,
-//     errorClass: 'popup__error_visible'
-//    }); 
   
 

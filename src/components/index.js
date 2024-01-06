@@ -47,9 +47,16 @@ closePopup.addEventListener('click', function () {
 
 // слушатель открытия попапа с местом при клике
 addPlace.addEventListener('click', function(){
+  placePopupReset();
   savePlaceButton.classList.add("popup__button_disabled");
   savePlaceButton.setAttribute('disabled','');
   openPlace(placePopup);
+  const errorSpan = Array.from(placePopup.querySelectorAll(".popup__error"));
+  errorSpan.forEach((it) =>{
+    it.textContent = '';
+  });
+  namePlace.classList.remove('popup__input_noname');
+  linkPicture.classList.remove('popup__input_noname');
 });
 
 // слушатель закрытия попапа с местом при клике

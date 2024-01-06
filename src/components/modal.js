@@ -50,4 +50,3 @@ allPopup.forEach((item) =>
     })
 );
 
-
