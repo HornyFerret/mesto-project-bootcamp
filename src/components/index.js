@@ -26,7 +26,6 @@ function handleSubmitPlace() {
 
 // сохранение попапа с именем
 function saveNamePopup() {
-  debugger
   nameNew.textContent = nameChange.value;
   profesionNew.textContent = profesion.value;
   closePlace(namePopup);

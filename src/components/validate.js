@@ -8,7 +8,8 @@ function saveButtonOff(submitButton,inactiveButtonClass) {
 // кнопка активна
 function saveButtonOn(formElement,submitButtonSelector,inactiveButtonClass, inputElement) {
     const submitButton = formElement.querySelector(submitButtonSelector);
-    if (!inputElement.validity.valid) {
+
+    if (formElement.checkValidity() == false) {
         saveButtonOff(submitButton,inactiveButtonClass);
     }
     else {
@@ -66,14 +67,17 @@ function setEventListeners(
         inactiveButtonClass, 
         ...rest
     }){
+
+    formElement.addEventListener('input', () => {
         const inputMassive = Array.from(formElement.querySelectorAll(inputSelector));
         inputMassive.forEach((inputElement) => {
-            formElement.addEventListener('input', () => {
-                isValid(formElement,inputElement,rest);
-                saveButtonOn(formElement,submitButtonSelector, inactiveButtonClass, inputElement);
-            });
+            isValid(formElement,inputElement,rest);  
+            saveButtonOn(formElement,submitButtonSelector, inactiveButtonClass, inputElement);
         });
-    };
+        
+    });
+        
+};
 
 // експортируемая функция проверки всех форм и инпутов на валидацию
 export function enableValidation({formSelector, ...rest}){
