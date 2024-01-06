@@ -1,6 +1,6 @@
 // импорт используемых переменных и функций
 import './initialCards.js';
-import {changeElement,elements} from'./card.js';
+
 
 // объявление переменных
 export const namePopup = document.getElementById("nickname");
@@ -15,37 +15,39 @@ export const plaseForm = document.getElementById("form-Place");
 export const saveButtonName = document.getElementById("saveButton");
 export const savePlaceButton = document.getElementById("place-save");
 
+// функция закрытия попапа через оверлей
+// с помощью Esc
+
 
 // функция открытия попапа 
 export function openPlace(item) {
     item.classList.add("popup_opened");
     item.classList.remove("popup_closet");
+    document.addEventListener('keydown', popupEsc);
 };
 
 // функция закрытия попапа 
 export function closePlace(item) {
     item.classList.remove("popup_opened");
     item.classList.add("popup_closet");
+    document.removeEventListener('keydown', popupEsc);
 };
 
-// функция обновления попапа добавления карточки с местом
-export function placePopupReset() {
-    plaseForm.reset();
+function popupEsc(evt) {
+    if (evt.key === "Escape") {
+      const openedPopup = document.querySelector('.popup_opened');
+      closePlace(openedPopup);
+    }
 };
+// с помощью клика
+const allPopup = document.querySelectorAll('.popup');
 
-// функция сохранения попапа с местом
-export function handleSubmitPlace() {
-    // evt.preventDefault();
-    closePlace(placePopup);
-    elements.prepend(changeElement(namePlace.value, linkPicture.value));
-    placePopupReset();
-};
+allPopup.forEach((item) => 
+    item.addEventListener('click', (evt) => {
+        if (evt.target.classList.contains('popup')) {
+            closePlace(item);
+        };
+    })
+);
 
-// сохранение попапа с именем
-export function saveNamePopup(evt) {
-    evt.preventDefault();
-    nameNew.textContent = `${nameChange.value}`;
-    profesionNew.textContent = `${profesion.value}`;
-    closePlace(namePopup);
-};
 
