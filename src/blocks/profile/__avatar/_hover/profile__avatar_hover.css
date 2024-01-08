@@ -1,0 +1,21 @@
+.profile__avatar_hover {
+    display: flex;
+    width: 26px;
+    position: absolute;
+    top: 114px;
+    opacity: 0;
+    border-radius: 50%;
+    padding: 47px;
+}
+
+.profile__avatar_hover:hover{
+    cursor: pointer;
+    opacity: 100%;
+    background-color: rgba(0, 0, 0, .6);
+}
+
+@media screen and (max-width: 655px) {
+    .profile__avatar_hover {
+        top: 97px;
+    }
+}

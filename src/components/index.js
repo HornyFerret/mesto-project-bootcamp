@@ -11,14 +11,25 @@ const closePopup = document.querySelector('.popup__close');
 const addPlace = document.querySelector('.profile__add-button');
 const closePicturePopup = document.querySelector('.popup__close_pic');
 
+const avatar = document.getElementById('avatar');
+const avatarPic = document.getElementById('avatarPic')
+const avatarPicNew = document.getElementById('link-profile');
+const avatarChange = document.getElementById('profile'); 
+const avatarForm = document.getElementById('formProfile');
+const avatarPopupClose = document.getElementById('profileClose');
+const avatarNewPicSave = document.getElementById('profile-save');
 
 // функция обновления попапа добавления карточки с местом
 function placePopupReset() {
   plaseForm.reset();
 };
+function avatarPopupReset() {
+  avatarForm.reset();
+};
 
 // функция сохранения попапа с местом
 function handleSubmitPlace() {
+  savePlaceButton.textContent = 'Сохранение...';
   closePlace(placePopup);
   elements.prepend(changeElement(namePlace.value, linkPicture.value, openCard));
   placePopupReset();
@@ -26,6 +37,7 @@ function handleSubmitPlace() {
 
 // сохранение попапа с именем
 function saveNamePopup() {
+  saveButtonName.textContent = 'Сохранение...';
   nameNew.textContent = nameChange.value;
   profesionNew.textContent = profesion.value;
   closePlace(namePopup);
@@ -37,6 +49,7 @@ changeName.addEventListener('click', function () {
   openPlace(namePopup);
   nameChange.value = nameNew.textContent;
   profesion.value = profesionNew.textContent;
+  saveButtonName.textContent = 'Сохранить';
 }); 
 
 // слушатель закрытия попапа с именем при клике
@@ -56,6 +69,7 @@ addPlace.addEventListener('click', function(){
   });
   namePlace.classList.remove('popup__input_noname');
   linkPicture.classList.remove('popup__input_noname');
+  savePlaceButton.textContent = 'Сохранить';
 });
 
 // слушатель закрытия попапа с местом при клике
@@ -69,11 +83,38 @@ closePicturePopup.addEventListener('click', function (){
   closePlace(picturePopup);
 });
 
+
+// слушатель открытия попапа с аватаром при клике
+avatar.addEventListener('click', function () {
+  openPlace(avatarChange);
+  avatarPopupReset();
+  const errrorSpan = avatarChange.querySelector(".popup__error");
+  errrorSpan.textContent = '';
+  avatarPicNew.classList.remove('popup__input_noname');
+  avatarNewPicSave.textContent = 'Сохранить';
+});
+
+// слушатель закрытия попапа с аватаром при клике
+avatarPopupClose.addEventListener('click', function () {
+  closePlace(avatarChange);
+});
+
+// сохранение попапа с аватаром
+function avatarSave() {
+  avatarNewPicSave.textContent = 'Сохранение...';
+  avatarPic.src = avatarPicNew.value;
+  closePlace(avatarChange);
+};
+
+
+
 // слушатель сохранния при клике на кнопку
 //места
 savePlaceButton.addEventListener('click', () => handleSubmitPlace());
 //имени
 saveButtonName.addEventListener('click', () => saveNamePopup());
+//аватарки
+avatarNewPicSave.addEventListener('click', () => avatarSave());
 
 //card
 // функция вызова карточки на страницу

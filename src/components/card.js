@@ -15,7 +15,7 @@ export function changeElement(itemText, itemPhoto,openCard) {
     elementCloneImg.alt = itemText;
     const deleteButton = elementClone.querySelector('.element__delete-icon');
     deleteButton.addEventListener('click', () => deleteElementButton(elementClone));
-    const likeButton = elementClone.querySelector('.element__like');
+    const likeButton = elementClone.querySelector('.element__like-pic');
     likeButton.addEventListener('click', function () {
         likeButton.classList.toggle('element__like_active');
     });
