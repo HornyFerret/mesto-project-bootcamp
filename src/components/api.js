@@ -19,25 +19,25 @@ fetch('https://nomoreparties.co/v1/wbf-cohort-15/cards',{
 })
 .then(res => res.json())
 .then((result) => {
-  console.log(result);
+//   console.log(result);
 });
 
 
-fetch('https://nomoreparties.co/v1/wbf-cohort-15/users/me',{
-    method: 'PATCH',
-    headers: {
-        authorization: 'f242fa5c-fb40-413f-b404-5d6d6d13f451',
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        name: 'im',
-        about: 'gay'
-      })
-})
-.then(res => res.json())
-.then((result) => {
-  //console.log(result);
-});
+// fetch('https://nomoreparties.co/v1/wbf-cohort-15/users/me',{
+//     method: 'PATCH',
+//     headers: {
+//         authorization: 'f242fa5c-fb40-413f-b404-5d6d6d13f451',
+//         'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//         name: 'im',
+//         about: 'gay'
+//       })
+// })
+// .then(res => res.json())
+// .then((result) => {
+//   //console.log(result);
+// });
 
 // fetch('https://nomoreparties.co/v1/wbf-cohort-15/cards',{
 //     method: 'POST',
@@ -163,6 +163,49 @@ export function cardDeleteLike(id) {
 })
 .then(res => {
     if (res.ok) return res.json();
+})
+.catch(err => {
+    console.log("Problem",err);
+})
+};
+
+export function newMe(name,about) {
+    return fetch(`https://nomoreparties.co/v1/wbf-cohort-15/users/me`,{
+    method: `PATCH`,
+    headers: {
+        authorization: 'f242fa5c-fb40-413f-b404-5d6d6d13f451',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        name: `${name}`,
+        about: `${about}`
+        })
+})
+.then(res => {
+    if (res.ok) {
+        return res.json();
+    }
+})
+.catch(err => {
+    console.log("Problem",err);
+})
+};
+
+export function newAvatar(avatar) {
+    return fetch(`https://nomoreparties.co/v1/wbf-cohort-15/users/me/avatar`,{
+    method: `PATCH`,
+    headers: {
+        authorization: 'f242fa5c-fb40-413f-b404-5d6d6d13f451',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        avatar: avatar
+        })
+})
+.then(res => {
+    if (res.ok) {
+        return res.json();
+    }
 })
 .catch(err => {
     console.log("Problem",err);

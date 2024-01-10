@@ -1,5 +1,5 @@
 import '../styles/index.css';
-import {cardFromServ,cardAddItem,whoAreU,setID} from './api.js';
+import {cardFromServ,cardAddItem,whoAreU,setID,newMe,newAvatar} from './api.js';
 // import {initialCards} from './initialCards.js';
 import {openPlace,closePlace} from './modal.js';
 import {enableValidation,plaseResetValid} from './validate.js';
@@ -44,11 +44,22 @@ function handleSubmitPlace() {
   })
 };
 
+whoAreU()
+.then(res =>{
+  nameNew.textContent = res.name;
+  profesionNew.textContent = res.about;
+  avatarPic.src = res.avatar;
+})
+
 // сохранение попапа с именем
 function saveNamePopup() {
   saveButtonName.textContent = 'Сохранение...';
-  nameNew.textContent = nameChange.value;
-  profesionNew.textContent = profesion.value;
+  newMe(nameChange.value,profesion.value)
+  .then(res => {
+    nameNew.textContent = res.name;
+    profesionNew.textContent = res.about;
+  })
+
   closePlace(namePopup);
 };
 
@@ -56,8 +67,11 @@ function saveNamePopup() {
 // слушатель открытия попапа с именем при клике
 changeName.addEventListener('click', function () {
   openPlace(namePopup);
-  nameChange.value = nameNew.textContent;
-  profesion.value = profesionNew.textContent;
+  whoAreU()
+  .then(res =>{
+    nameChange.value = res.name;
+    profesion.value = res.about;
+  })
   saveButtonName.textContent = 'Сохранить';
 }); 
 
@@ -105,7 +119,10 @@ avatarPopupClose.addEventListener('click', function () {
 // сохранение попапа с аватаром
 function avatarSave() {
   avatarNewPicSave.textContent = 'Сохранение...';
-  avatarPic.src = avatarPicNew.value;
+  newAvatar(avatarPicNew.value)
+  .then(res => {
+    avatarPic.src = res.avatar;
+  })
   closePlace(avatarChange);
 };
 
@@ -132,6 +149,9 @@ function addOnElements(element) {
 ])
  .then(([cardFromServ,whoAreU]) => {
     setID(whoAreU._id);
+    // nameNew.textContent = whoAreU.name;
+    // profesionNew.textContent = whoAreU.about;
+    // avatarPic.src = whoAreU.avatar;
 
     cardFromServ.reverse().forEach((item) => {
       addOnElements(changeElement(item, openCard));
