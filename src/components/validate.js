@@ -1,3 +1,12 @@
+export function plaseResetValid(placePopup,namePlace,linkPicture) {
+    const errorSpan = Array.from(placePopup.querySelectorAll(".popup__error"));
+    errorSpan.forEach((it) =>{
+      it.textContent = '';
+    });
+    namePlace.classList.remove('popup__input_noname');
+    linkPicture.classList.remove('popup__input_noname');
+}
+
 
 //функции изменения состояния кнопки сохранения
 // кнопка неактивна
@@ -6,9 +15,7 @@ function saveButtonOff(submitButton,inactiveButtonClass) {
     submitButton.setAttribute('disabled','');
 };
 // кнопка активна
-function saveButtonOn(formElement,submitButtonSelector,inactiveButtonClass, inputElement) {
-    const submitButton = formElement.querySelector(submitButtonSelector);
-
+function saveButtonOn(formElement,submitButton,inactiveButtonClass) {
     if (formElement.checkValidity() == false) {
         saveButtonOff(submitButton,inactiveButtonClass);
     }
@@ -25,13 +32,13 @@ function wrongInputOn(
     inputElement,
     {
         errorClass,
-        inputErrorClass
+        inputErrorClass,
+        inputErrorLine
     }){
     const errorElement = formElement.querySelector(inputErrorClass + inputElement.id);
-    inputElement.classList.add("popup__input_noname");
+    inputElement.classList.add(inputErrorLine);
     errorElement.classList.add(errorClass);
     errorElement.textContent = inputElement.validationMessage;
-    
     
 };
 // функция удаления объявления об ошибке в имени
@@ -40,10 +47,11 @@ function wrongInputOff(
     inputElement,
     {
         errorClass,
-        inputErrorClass
+        inputErrorClass,
+        inputErrorLine
     }){
     const errorElement = formElement.querySelector(inputErrorClass + inputElement.id);
-    inputElement.classList.remove("popup__input_noname");
+    inputElement.classList.remove(inputErrorLine);
     errorElement.classList.remove(errorClass);
     errorElement.textContent = '';
 };
@@ -67,12 +75,12 @@ function setEventListeners(
         inactiveButtonClass, 
         ...rest
     }){
-
+    const submitButton = formElement.querySelector(submitButtonSelector);
     formElement.addEventListener('input', () => {
         const inputMassive = Array.from(formElement.querySelectorAll(inputSelector));
         inputMassive.forEach((inputElement) => {
             isValid(formElement,inputElement,rest);  
-            saveButtonOn(formElement,submitButtonSelector, inactiveButtonClass, inputElement);
+            saveButtonOn(formElement,submitButton, inactiveButtonClass);
         });
         
     });

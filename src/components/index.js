@@ -1,7 +1,8 @@
 import '../styles/index.css';
+import * as api from './api.js';
 import {initialCards} from './initialCards.js';
-import {namePopup,nameChange,profesion,nameNew,profesionNew,saveButtonName,savePlaceButton,placePopup,openPlace,closePlace,linkPicture,namePlace,plaseForm} from './modal.js';
-import {enableValidation} from './validate.js';
+import {openPlace,closePlace} from './modal.js';
+import {enableValidation,plaseResetValid} from './validate.js';
 import {changeElement} from'./card.js';
 const elements = document.querySelector('.elements');
 const picturePopup = document.getElementById("picture");
@@ -11,6 +12,18 @@ const closePopup = document.querySelector('.popup__close');
 const addPlace = document.querySelector('.profile__add-button');
 const closePicturePopup = document.querySelector('.popup__close_pic');
 
+const namePopup = document.getElementById("nickname");
+const nameChange = document.getElementById("name");
+const profesion = document.getElementById("proffesion");
+const nameNew = document.querySelector('.profile__main-text');
+const profesionNew = document.querySelector('.profile__text');
+const placePopup = document.getElementById("place");
+const namePlace = document.getElementById("name-place");
+const linkPicture = document.getElementById("link-picture");
+const plaseForm = document.getElementById("form-Place");
+const saveButtonName = document.getElementById("saveButton");
+const savePlaceButton = document.getElementById("place-save");
+
 const avatar = document.getElementById('avatar');
 const avatarPic = document.getElementById('avatarPic')
 const avatarPicNew = document.getElementById('link-profile');
@@ -19,20 +32,12 @@ const avatarForm = document.getElementById('formProfile');
 const avatarPopupClose = document.getElementById('profileClose');
 const avatarNewPicSave = document.getElementById('profile-save');
 
-// функция обновления попапа добавления карточки с местом
-function placePopupReset() {
-  plaseForm.reset();
-};
-function avatarPopupReset() {
-  avatarForm.reset();
-};
 
 // функция сохранения попапа с местом
 function handleSubmitPlace() {
   savePlaceButton.textContent = 'Сохранение...';
   closePlace(placePopup);
   elements.prepend(changeElement(namePlace.value, linkPicture.value, openCard));
-  placePopupReset();
 };
 
 // сохранение попапа с именем
@@ -59,22 +64,16 @@ closePopup.addEventListener('click', function () {
 
 // слушатель открытия попапа с местом при клике
 addPlace.addEventListener('click', function(){
-  placePopupReset();
+  plaseForm.reset();
   savePlaceButton.classList.add("popup__button_disabled");
   savePlaceButton.setAttribute('disabled','');
   openPlace(placePopup);
-  const errorSpan = Array.from(placePopup.querySelectorAll(".popup__error"));
-  errorSpan.forEach((it) =>{
-    it.textContent = '';
-  });
-  namePlace.classList.remove('popup__input_noname');
-  linkPicture.classList.remove('popup__input_noname');
+  plaseResetValid(placePopup,namePlace,linkPicture);
   savePlaceButton.textContent = 'Сохранить';
 });
 
 // слушатель закрытия попапа с местом при клике
 closePlacePopup.addEventListener('click', function(){
-  placePopupReset();
   closePlace(placePopup);
 });
 
@@ -87,7 +86,7 @@ closePicturePopup.addEventListener('click', function (){
 // слушатель открытия попапа с аватаром при клике
 avatar.addEventListener('click', function () {
   openPlace(avatarChange);
-  avatarPopupReset();
+  avatarForm.reset();
   const errrorSpan = avatarChange.querySelector(".popup__error");
   errrorSpan.textContent = '';
   avatarPicNew.classList.remove('popup__input_noname');
@@ -123,18 +122,28 @@ function addOnElements(element) {
 };
 
 // перебор массива
-function massiveElement() {
-  initialCards.forEach((item) => {
-    addOnElements(changeElement(item.name, item.link, openCard));
+ Promise.all([
+  api.cardFromServ(),
+  api.whoAreU()
+])
+ .then(data => {
+  console.log(data[1].name);
+  api.setID(data[1]._id);
+  
+  data[0].forEach((item) => {
+    addOnElements(changeElement(item, openCard));
   });
-};
-massiveElement();
+ })
+ .catch(err =>{
+  console.log('Error in promise:' + err);
+})
 
 // открывает попап с любой из вызванных при нажатии
 function openCard(itemScr, itemAlt) {
   openPlace(picturePopup);
-  picturePopup.querySelector('.popup__image').src = itemScr; 
-  picturePopup.querySelector('.popup__caption').textContent = itemAlt; 
+  picturePopup.querySelector('.popup__image').src = itemScr;
+  picturePopup.querySelector('.popup__image').alt = itemAlt;
+  picturePopup.querySelector('.popup__caption').textContent = itemAlt;
 };
 
 // validation
@@ -144,5 +153,7 @@ enableValidation ({
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_disabled',
   inputErrorClass: `.popup__error_`,
-  errorClass: 'popup__error_visible'
- }); 
+  errorClass: 'popup__error_visible',
+  inputErrorLine: 'popup__input_noname'
+ });
+
