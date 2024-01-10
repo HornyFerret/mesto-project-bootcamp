@@ -1,9 +1,10 @@
 import '../styles/index.css';
-import * as api from './api.js';
-import {initialCards} from './initialCards.js';
+import {cardFromServ,whoAreU,setID} from './api.js';
+// import {initialCards} from './initialCards.js';
 import {openPlace,closePlace} from './modal.js';
 import {enableValidation,plaseResetValid} from './validate.js';
 import {changeElement} from'./card.js';
+
 const elements = document.querySelector('.elements');
 const picturePopup = document.getElementById("picture");
 const closePlacePopup = document.getElementById("place-close");
@@ -123,20 +124,17 @@ function addOnElements(element) {
 
 // перебор массива
  Promise.all([
-  api.cardFromServ(),
-  api.whoAreU()
+  cardFromServ(),
+  whoAreU()
 ])
- .then(data => {
-  console.log(data[1].name);
-  api.setID(data[1]._id);
+ .then(([cardFromServ,whoAreU]) => {
+  setID(whoAreU._id);
   
-  data[0].forEach((item) => {
+  cardFromServ.reverse().forEach((item) => {
     addOnElements(changeElement(item, openCard));
   });
  })
- .catch(err =>{
-  console.log('Error in promise:' + err);
-})
+
 
 // открывает попап с любой из вызванных при нажатии
 function openCard(itemScr, itemAlt) {

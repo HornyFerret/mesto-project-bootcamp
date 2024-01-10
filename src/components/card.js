@@ -21,11 +21,14 @@ export function changeElement(card,openCard) {
     const likeNumder = elementClone.querySelector('.element__like-number');
     likeNumder.textContent = card.likes.length;
 
-    if(card.likes.like._id === api.user){
+    function checkLike(card) {
+        return card.likes.some(like => like._id === api.user);
+    };
+    if(checkLike(card)){
         likeButton.classList.add('element__like_active');
     };
     likeButton.addEventListener('click', function (evt) {
-        if(evt.targetclassList.contains('element__like_active')){
+        if(evt.target.classList.contains('element__like_active')){
             api.cardDeleteLike(card._id)
             .then(res =>{
                 likeButton.classList.toggle('element__like_active');
