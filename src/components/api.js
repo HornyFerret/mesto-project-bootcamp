@@ -74,6 +74,7 @@ export function cardFromServ() {
 })
 .then(res => {
     if (res.ok) return res.json();
+    return Promise.reject(`Ошибка: ${res.status}`);
 })
 .catch(err => {
     console.log("Problem",err);
@@ -93,6 +94,7 @@ export function whoAreU() {
     if (res.ok) {
         return res.json();
     }
+    return Promise.reject(`Ошибка: ${res.status}`);
 })
 .catch(err => {
     console.log("Problem",err);
@@ -113,6 +115,7 @@ export function cardAddItem(name,link) {
 })
 .then(res => {
     if (res.ok) return res.json();
+    return Promise.reject(`Ошибка: ${res.status}`);
 })
 .catch(res => {
     console.log("Problem",res);
@@ -129,6 +132,7 @@ export function cardDeleteItem(id) {
 })
 .then(res => {
     if (res.ok) return res.json();
+    return Promise.reject(`Ошибка: ${res.status}`);
 })
 .catch(err => {
     console.log("Problem",err);
@@ -147,6 +151,7 @@ export function cardAddLike(id) {
 })
 .then(res => {
     if (res.ok) return res.json();
+    return Promise.reject(`Ошибка: ${res.status}`);
 })
 .catch(err => {
     console.log("Problem",err);
@@ -163,6 +168,7 @@ export function cardDeleteLike(id) {
 })
 .then(res => {
     if (res.ok) return res.json();
+    return Promise.reject(`Ошибка: ${res.status}`);
 })
 .catch(err => {
     console.log("Problem",err);
@@ -185,6 +191,7 @@ export function newMe(name,about) {
     if (res.ok) {
         return res.json();
     }
+    return Promise.reject(`Ошибка: ${res.status}`);
 })
 .catch(err => {
     console.log("Problem",err);
@@ -206,6 +213,7 @@ export function newAvatar(avatar) {
     if (res.ok) {
         return res.json();
     }
+    return Promise.reject(`Ошибка: ${res.status}`);
 })
 .catch(err => {
     console.log("Problem",err);
