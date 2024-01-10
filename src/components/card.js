@@ -10,6 +10,8 @@ function deleteElementButton(item) {
 
 // функция автоматического добавления карточек из массива
 export function changeElement(card,openCard) {
+    
+    
     const elementClone = element.querySelector('.element').cloneNode(true);
     elementClone.querySelector('.element__text').textContent = card.name;
 
@@ -27,6 +29,9 @@ export function changeElement(card,openCard) {
     if(checkLike(card)){
         likeButton.classList.add('element__like_active');
     };
+    
+
+    
     likeButton.addEventListener('click', function (evt) {
         if(evt.target.classList.contains('element__like_active')){
             api.cardDeleteLike(card._id)

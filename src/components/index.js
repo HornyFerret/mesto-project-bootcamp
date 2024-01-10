@@ -1,5 +1,5 @@
 import '../styles/index.css';
-import {cardFromServ,whoAreU,setID} from './api.js';
+import {cardFromServ,cardAddItem,whoAreU,setID} from './api.js';
 // import {initialCards} from './initialCards.js';
 import {openPlace,closePlace} from './modal.js';
 import {enableValidation,plaseResetValid} from './validate.js';
@@ -38,7 +38,10 @@ const avatarNewPicSave = document.getElementById('profile-save');
 function handleSubmitPlace() {
   savePlaceButton.textContent = 'Сохранение...';
   closePlace(placePopup);
-  elements.prepend(changeElement(namePlace.value, linkPicture.value, openCard));
+  cardAddItem(namePlace.value,linkPicture.value)
+  .then(res =>{
+    addOnElements(changeElement(res, openCard));
+  })
 };
 
 // сохранение попапа с именем
@@ -128,11 +131,11 @@ function addOnElements(element) {
   whoAreU()
 ])
  .then(([cardFromServ,whoAreU]) => {
-  setID(whoAreU._id);
-  
-  cardFromServ.reverse().forEach((item) => {
-    addOnElements(changeElement(item, openCard));
-  });
+    setID(whoAreU._id);
+
+    cardFromServ.reverse().forEach((item) => {
+      addOnElements(changeElement(item, openCard));
+    });
  })
 
 
