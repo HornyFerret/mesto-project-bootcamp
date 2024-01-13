@@ -12,17 +12,20 @@ const config = {
       authorization: 'f242fa5c-fb40-413f-b404-5d6d6d13f451',
       "Content-Type": "application/json"
     }
-  };
+};
 
-export function touchCardFromServ() {
+function checkResponse(res) {
+    if (res.ok) return res.json();
+    return Promise.reject(`Ошибка: ${res.status}`);
+}
+
+
+export function getAllCards() {
     return fetch(`${config.baseUrl}/cards`,{
     method: `GET`,
     headers: config.headers
 })
-.then(res => {
-    if (res.ok) return res.json();
-    return Promise.reject(`Ошибка: ${res.status}`);
-})
+.then(checkResponse)
 };
 
 export function getUserInfo() {
@@ -31,12 +34,7 @@ export function getUserInfo() {
     headers: config.headers,
     body: null
 })
-.then(res => {
-    if (res.ok) {
-        return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-})
+.then(checkResponse)
 };
 
 export function addCardItem(name,link) {
@@ -48,46 +46,34 @@ export function addCardItem(name,link) {
         link: `${link}`
       })
 })
-.then(res => {
-    if (res.ok) return res.json();
-    return Promise.reject(`Ошибка: ${res.status}`);
-})
+.then(checkResponse)
 };
 
-export function cardDeleteItem(id) {
+export function deleteCardItem(id) {
     return fetch(`${config.baseUrl}/cards/${id}`,{
     method: `DELETE`,
     headers: config.headers
 })
-.then(res => {
-    if (res.ok) return res.json();
-    return Promise.reject(`Ошибка: ${res.status}`);
-})
+.then(checkResponse)
 };
 
-export function cardAddLike(id) {
+export function addCardLike(id) {
     return fetch(`${config.baseUrl}/cards/likes/${id}`,{
     method: `PUT`,
     headers: config.headers
 })
-.then(res => {
-    if (res.ok) return res.json();
-    return Promise.reject(`Ошибка: ${res.status}`);
-})
+.then(checkResponse)
 };
 
-export function cardDeleteLike(id) {
+export function deleteCardLike(id) {
     return fetch(`${config.baseUrl}/cards/likes/${id}`,{
     method: `DELETE`,
     headers: config.headers
 })
-.then(res => {
-    if (res.ok) return res.json();
-    return Promise.reject(`Ошибка: ${res.status}`);
-})
+.then(checkResponse)
 };
 
-export function seeNewMe(name,about) {
+export function updateProfileData(name,about) {
     return fetch(`${config.baseUrl}/users/me`,{
     method: `PATCH`,
     headers: config.headers,
@@ -96,26 +82,16 @@ export function seeNewMe(name,about) {
         about: `${about}`
         })
 })
-.then(res => {
-    if (res.ok) {
-        return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-})
+.then(checkResponse)
 };
 
-export function seeNewAvatar(avatar) {
-    return fetch(`https://nomoreparties.co/v1/wbf-cohort-15/users/me/avatar`,{
+export function updateAvatar(avatar) {
+    return fetch(`${config.baseUrl}/users/me/avatar`,{
     method: `PATCH`,
     headers: config.headers,
     body: JSON.stringify({
         avatar: avatar
         })
 })
-.then(res => {
-    if (res.ok) {
-        return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-})
+.then(checkResponse)
 };
