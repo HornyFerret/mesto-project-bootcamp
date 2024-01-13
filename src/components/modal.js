@@ -1,35 +1,29 @@
-// импорт используемых переменных и функций
-import './initialCards.js';
-// функция закрытия попапа через оверлей
-// с помощью Esc
-
-
 // функция открытия попапа 
-export function openPlace(item) {
+export function openPopup(item) {
     item.classList.add("popup_opened");
-    document.addEventListener('keydown', popupEsc);
+    document.addEventListener('keydown', closePopupByEsc);
 };
 
 // функция закрытия попапа 
-export function closePlace(item) {
+export function closePopup(item) {
     item.classList.remove("popup_opened");
-    document.removeEventListener('keydown', popupEsc);
+    document.removeEventListener('keydown', closePopupByEsc);
 };
 
-function popupEsc(evt) {
+// функция закрытия попапа с помощью Esc
+function closePopupByEsc(evt) {
     if (evt.key === "Escape") {
       const openedPopup = document.querySelector('.popup_opened');
-      closePlace(openedPopup);
+      closePopup(openedPopup);
     }
 };
-// с помощью клика
-const allPopup = document.querySelectorAll('.popup');
-
-allPopup.forEach((item) => 
-    item.addEventListener('click', (evt) => {
-        if (evt.target.classList.contains('popup')) {
-            closePlace(item);
-        };
-    })
-);
-
+// с помощью клика через оверлей
+export function closePopupOverlay(elements) {
+    elements.forEach((item) => 
+        item.addEventListener('click', (evt) => {
+            if (evt.target.classList.contains('popup')) {
+                closePopup(item);
+            };
+        })
+    );
+};

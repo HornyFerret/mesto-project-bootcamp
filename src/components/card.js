@@ -4,12 +4,12 @@ import * as api from './api.js';
 const element = document.querySelector('#new_element').content;
 
 // единоразовая кнопка удаления элемента из массива
-function deleteElementButton(item) {
+function deleteElement(item) {
     item.remove();
 };
 
 // функция автоматического добавления карточек из массива
-export function changeElement(card,openCard) {
+export function createElement(card,openCard) {
     
     
     const elementClone = element.querySelector('.element').cloneNode(true);
@@ -62,7 +62,7 @@ export function changeElement(card,openCard) {
         deleteButton.addEventListener('click', () => {
             api.cardDeleteItem(card._id)
             .then(() => {
-                deleteElementButton(elementClone);
+                deleteElement(elementClone);
             })
             .catch(err =>{
                 console.log('Error:' + err);

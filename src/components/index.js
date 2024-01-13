@@ -1,30 +1,46 @@
 import '../styles/index.css';
-import {cardFromServ,cardAddItem,whoAreU,setID,newMe,newAvatar} from './api.js';
-// import {initialCards} from './initialCards.js';
-import {openPlace,closePlace} from './modal.js';
-import {enableValidation,plaseResetValid} from './validate.js';
-import {changeElement} from'./card.js';
+import {touchCardFromServ,addCardItem,getUserInfo,setID,seeNewMe,seeNewAvatar} from './api.js';
+import {openPopup,closePopup,closePopupOverlay} from './modal.js';
+import {enableValidation} from './validate.js';
+import {createElement} from'./card.js';
+import {handleSubmitPlace,saveProfilePopup,saveAvatarPopup} from'./popupSaveFunctions.js';
+import {openCard} from'./openCard.js';
 
+//-------------------------------------------
+
+//для добавления карточек на страницу
 const elements = document.querySelector('.elements');
+
+//массив всех попапов для закрытия через оверлей
+const allPopups = document.querySelectorAll('.popup');
+
+//попап с картинкой(при клике на картинку)
 const picturePopup = document.getElementById("picture");
-const closePlacePopup = document.getElementById("place-close");
-const changeName = document.querySelector('.profile__info-picture');
-const closePopup = document.querySelector('.popup__close');
-const addPlace = document.querySelector('.profile__add-button');
+const picturePopupImg = picturePopup.querySelector('.popup__image');
+const picturePopupCaption = picturePopup.querySelector('.popup__caption');
 const closePicturePopup = document.querySelector('.popup__close_pic');
 
-const namePopup = document.getElementById("nickname");
-const nameChange = document.getElementById("name");
-const profesion = document.getElementById("proffesion");
-const nameNew = document.querySelector('.profile__main-text');
-const profesionNew = document.querySelector('.profile__text');
-const placePopup = document.getElementById("place");
-const namePlace = document.getElementById("name-place");
-const linkPicture = document.getElementById("link-picture");
-const plaseForm = document.getElementById("form-Place");
-const saveButtonName = document.getElementById("saveButton");
-const savePlaceButton = document.getElementById("place-save");
+//попап изменения данных профиля(имя и о себе)
+const profilePopup = document.getElementById("nickname");
+const changeNameButton = document.querySelector('.profile__info-picture');
+const nameProfilePopup = document.getElementById("name");
+const nameProfileForm = document.getElementById('formName');
+const profesionProfilePopup = document.getElementById("proffesion");
+const nameProfile = document.querySelector('.profile__main-text');
+const profesionProfile = document.querySelector('.profile__text');
+const saveButtonProfilePopup = document.getElementById("saveButton");
+const closeProfilePopup = document.querySelector('.popup__close');
 
+//попап добавления нового места
+const placePopup = document.getElementById("place");
+const addPlaceButton = document.querySelector('.profile__add-button');
+const namePlacePopup = document.getElementById("name-place");
+const linkPicturePlacePopup = document.getElementById("link-picture");
+const placePopupForm = document.getElementById("form-Place");
+const saveButtonPlacePopup = document.getElementById("place-save");
+const closePlacePopup = document.getElementById("place-close");
+
+//попап изменения аватарки
 const avatar = document.getElementById('avatar');
 const avatarPic = document.getElementById('avatarPic')
 const avatarPicNew = document.getElementById('link-profile');
@@ -33,141 +49,106 @@ const avatarForm = document.getElementById('formProfile');
 const avatarPopupClose = document.getElementById('profileClose');
 const avatarNewPicSave = document.getElementById('profile-save');
 
+//-------------------------------------------
 
-// функция сохранения попапа с местом
-function handleSubmitPlace() {
-  savePlaceButton.textContent = 'Сохранение...';
-  closePlace(placePopup);
-  cardAddItem(namePlace.value,linkPicture.value)
-  .then(res =>{
-    addOnElements(changeElement(res, openCard));
-  })
-};
-
-whoAreU()
-.then(res =>{
-  nameNew.textContent = res.name;
-  profesionNew.textContent = res.about;
-  avatarPic.src = res.avatar;
-})
-
-// сохранение попапа с именем
-function saveNamePopup() {
-  saveButtonName.textContent = 'Сохранение...';
-  newMe(nameChange.value,profesion.value)
-  .then(res => {
-    nameNew.textContent = res.name;
-    profesionNew.textContent = res.about;
-  })
-
-  closePlace(namePopup);
-};
-
-//modal
 // слушатель открытия попапа с именем при клике
-changeName.addEventListener('click', function () {
-  openPlace(namePopup);
-  whoAreU()
-  .then(res =>{
-    nameChange.value = res.name;
-    profesion.value = res.about;
-  })
-  saveButtonName.textContent = 'Сохранить';
+changeNameButton.addEventListener('click', function () {
+  openPopup(profilePopup);
+  nameProfilePopup.value = nameProfile.textContent;
+  profesionProfilePopup.value = profesionProfile.textContent;
 }); 
 
-// слушатель закрытия попапа с именем при клике
-closePopup.addEventListener('click', function () {
-  closePlace(namePopup);
+// слушатель открытия попапа с местом при клике
+addPlaceButton.addEventListener('click', function(){
+  placePopupForm.reset();
+  const errorSpans = Array.from(placePopup.querySelectorAll(".popup__error"));
+  errorSpans.forEach((it) =>{
+    it.textContent = '';
+  });
+  namePlacePopup.classList.remove('popup__input_noname');
+  linkPicturePlacePopup.classList.remove('popup__input_noname');
+  saveButtonPlacePopup.classList.add("popup__button_disabled");
+  saveButtonPlacePopup.setAttribute('disabled','');
+  openPopup(placePopup);
 });
 
-// слушатель открытия попапа с местом при клике
-addPlace.addEventListener('click', function(){
-  plaseForm.reset();
-  savePlaceButton.classList.add("popup__button_disabled");
-  savePlaceButton.setAttribute('disabled','');
-  openPlace(placePopup);
-  plaseResetValid(placePopup,namePlace,linkPicture);
-  savePlaceButton.textContent = 'Сохранить';
+// слушатель открытия попапа с аватаром при клике
+avatar.addEventListener('click', function () {
+  const errrorSpan = avatarChange.querySelector(".popup__error");
+  errrorSpan.textContent = '';
+  avatarPicNew.classList.remove('popup__input_noname');
+  avatarForm.reset();
+  openPopup(avatarChange);
+});
+
+//-------------------------------------------
+
+// слушатель закрытия попапа с именем при клике
+closeProfilePopup.addEventListener('click', function () {
+  closePopup(profilePopup);
 });
 
 // слушатель закрытия попапа с местом при клике
 closePlacePopup.addEventListener('click', function(){
-  closePlace(placePopup);
+  closePopup(placePopup);
 });
 
 // слушатель закрытия попапа с картинкой при клике
 closePicturePopup.addEventListener('click', function (){
-  closePlace(picturePopup);
-});
-
-
-// слушатель открытия попапа с аватаром при клике
-avatar.addEventListener('click', function () {
-  openPlace(avatarChange);
-  avatarForm.reset();
-  const errrorSpan = avatarChange.querySelector(".popup__error");
-  errrorSpan.textContent = '';
-  avatarPicNew.classList.remove('popup__input_noname');
-  avatarNewPicSave.textContent = 'Сохранить';
+  closePopup(picturePopup);
 });
 
 // слушатель закрытия попапа с аватаром при клике
 avatarPopupClose.addEventListener('click', function () {
-  closePlace(avatarChange);
+  closePopup(avatarChange);
 });
 
-// сохранение попапа с аватаром
-function avatarSave() {
-  avatarNewPicSave.textContent = 'Сохранение...';
-  newAvatar(avatarPicNew.value)
-  .then(res => {
-    avatarPic.src = res.avatar;
-  })
-  closePlace(avatarChange);
-};
+// закрытие попапа с помощью клика через оверлей
+closePopupOverlay(allPopups);
 
-
+//-------------------------------------------
 
 // слушатель сохранния при клике на кнопку
 //места
-savePlaceButton.addEventListener('click', () => handleSubmitPlace());
+placePopupForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  handleSubmitPlace();
+});
 //имени
-saveButtonName.addEventListener('click', () => saveNamePopup());
+nameProfileForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  saveProfilePopup();
+});
 //аватарки
-avatarNewPicSave.addEventListener('click', () => avatarSave());
+avatarForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  saveAvatarPopup();
+});
 
-//card
-// функция вызова карточки на страницу
-function addOnElements(element) {
-  elements.prepend(element);
-};
+//-------------------------------------------
 
-// перебор массива
+// вызов данных с сервера(юзер и карточки)
  Promise.all([
-  cardFromServ(),
-  whoAreU()
+  touchCardFromServ(),
+  getUserInfo()
 ])
- .then(([cardFromServ,whoAreU]) => {
-    setID(whoAreU._id);
-    // nameNew.textContent = whoAreU.name;
-    // profesionNew.textContent = whoAreU.about;
-    // avatarPic.src = whoAreU.avatar;
+ .then(([touchCardFromServ,getUserInfo]) => {
+    setID(getUserInfo._id);
+    nameProfile.textContent = getUserInfo.name;
+    profesionProfile.textContent = getUserInfo.about;
+    avatarPic.src = getUserInfo.avatar;
 
-    cardFromServ.reverse().forEach((item) => {
-      addOnElements(changeElement(item, openCard));
+    touchCardFromServ.reverse().forEach((item) => {
+      elements.prepend(createElement(item, openCard));
     });
  })
+ .catch(err =>{
+  console.log('Error:' + err);
+})
 
+//-------------------------------------------
 
-// открывает попап с любой из вызванных при нажатии
-function openCard(itemScr, itemAlt) {
-  openPlace(picturePopup);
-  picturePopup.querySelector('.popup__image').src = itemScr;
-  picturePopup.querySelector('.popup__image').alt = itemAlt;
-  picturePopup.querySelector('.popup__caption').textContent = itemAlt;
-};
-
-// validation
+// призыв функции валидации
 enableValidation ({
   formSelector: '.popup__form',
   inputSelector: '.popup__input',

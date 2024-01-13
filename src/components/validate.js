@@ -1,12 +1,3 @@
-export function plaseResetValid(placePopup,namePlace,linkPicture) {
-    const errorSpan = Array.from(placePopup.querySelectorAll(".popup__error"));
-    errorSpan.forEach((it) =>{
-      it.textContent = '';
-    });
-    namePlace.classList.remove('popup__input_noname');
-    linkPicture.classList.remove('popup__input_noname');
-}
-
 
 //функции изменения состояния кнопки сохранения
 // кнопка неактивна
@@ -27,7 +18,7 @@ function saveButtonOn(formElement,submitButton,inactiveButtonClass) {
 };
 
 // функция добавления объявления об ошибке в имени
-function wrongInputOn(
+function onWrongInput(
     formElement,
     inputElement,
     {
@@ -42,7 +33,7 @@ function wrongInputOn(
     
 };
 // функция удаления объявления об ошибке в имени
-function wrongInputOff(
+function offWrongInput(
     formElement,
     inputElement,
     {
@@ -57,12 +48,12 @@ function wrongInputOff(
 };
 
 // функция проверки на валидацию задаваемого инпута из формы
-function isValid(formElement,inputElement, rest){
+function checkValid(formElement,inputElement, rest){
     if (!inputElement.validity.valid) {
-        wrongInputOn(formElement,inputElement, rest);
+        onWrongInput(formElement,inputElement, rest);
     } 
     else {
-        wrongInputOff(formElement,inputElement, rest);
+        offWrongInput(formElement,inputElement, rest);
     };
 };
 
@@ -76,10 +67,10 @@ function setEventListeners(
         ...rest
     }){
     const submitButton = formElement.querySelector(submitButtonSelector);
+    const inputs = Array.from(formElement.querySelectorAll(inputSelector));
     formElement.addEventListener('input', () => {
-        const inputMassive = Array.from(formElement.querySelectorAll(inputSelector));
-        inputMassive.forEach((inputElement) => {
-            isValid(formElement,inputElement,rest);  
+        inputs.forEach((inputElement) => {
+            checkValid(formElement,inputElement,rest);  
             saveButtonOn(formElement,submitButton, inactiveButtonClass);
         });
         
@@ -89,8 +80,8 @@ function setEventListeners(
 
 // експортируемая функция проверки всех форм и инпутов на валидацию
 export function enableValidation({formSelector, ...rest}){
-    const formList = Array.from(document.querySelectorAll(formSelector));
-    formList.forEach((formElement) => {
+    const formLists = Array.from(document.querySelectorAll(formSelector));
+    formLists.forEach((formElement) => {
         setEventListeners(formElement,rest);
     });
     
