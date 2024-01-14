@@ -57,6 +57,8 @@ avatar.addEventListener('click', function () {
   errrorSpan.textContent = '';
   save.avatarPicNew.classList.remove('popup__input_noname');
   avatarForm.reset();
+  save.avatarNewPicSave.classList.add("popup__button_disabled");
+  save.avatarNewPicSave.setAttribute('disabled','');
   openPopup(save.avatarChange);
 });
 

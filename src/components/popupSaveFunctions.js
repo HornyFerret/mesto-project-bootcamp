@@ -28,7 +28,7 @@ export const saveButtonPlacePopup = document.getElementById("place-save");
 export const avatarPic = document.getElementById('avatarPic')
 export const avatarPicNew = document.getElementById('link-profile');
 export const avatarChange = document.getElementById('profile');
-const avatarNewPicSave = document.getElementById('profile-save');
+export const avatarNewPicSave = document.getElementById('profile-save');
 
 //-------------------------------------------
 
